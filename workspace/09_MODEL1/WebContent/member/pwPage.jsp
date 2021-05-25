@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function(){
+			const pw0 = $('#pw0'); // 현재 비번
+			const pw = $('#pw'); // 새로운 비번
+			const pw1 = $('#pw1'); // 새로운 비번 확인
+			const f = $('#f');
+			f.on('submit', function(e){
+				if(pw0.val() != '${loginDTO.pw}'){
+					alert('현재 비밀번호를 확인하세요');
+					e.preventDefault();
+					return false;
+				} else if(pw.val() == '${loginDTO.pw}'){
+					alert('같은 비밀번호입니다.');
+					e.preventDefault();
+					return false;
+				} else if(pw.val() == '' || pw1.val() == ''){
+					alert('새 비밀번호를 입력하세요.');
+					e.preventDefault();
+					return false;
+				} else if(pw.val() != pw1.val()){
+					alert('새로 입력한 비밀번호가 일치하지 않습니다! 확인해주세요.');
+					e.preventDefault();
+					return false;
+				}
+			})
+			
+			const return_btn = $('#return_btn');
+			return_btn.on('click', function(){
+				location.href = 'myPage.jsp';
+			})
+		})
+	</script>
+	<style>
+		.container{
+			width: 500px;
+			margin: 100px auto;
+			text-align: center;
+		}
+		label{
+			display: inline-block;
+			width: 150px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<form id="f" action="pwChange.jsp" method="post">
+			<label for="pw0">현재 비밀번호</label><input type="password" id="pw0"><br> <!-- pw0 or pw1로 script 처리해서 확인용 -->
+			<label for="pw">새 비밀번호</label><input type="password" name="pw" id="pw"><br> <!-- 실제로 파라미터 전달 값. name값 부여 -->
+			<label for="pw1">비밀번호 확인</label><input type="password" id="pw1"><br><br>
+			<button>비밀번호변경하기</button>
+			<input type="button" value="되돌아가기" id="return_btn">
+		</form>
+	</div>
+
+</body>
+</html>
+
+

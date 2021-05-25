@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function(){
+			// input에 id를 동일하게 적용했을 때,
+			// $('#btn')으로 객체를 호출할 때 첫 번째 id값만 출력한다 -> 날짜만 출력됨
+			// id말고 다른 방법으로 해결해야 한다
+			$('input[type=button]').on('click', function(){
+				location.href='/01_SERVLET/Quiz02?cmd=' + $(this).data('cmd');
+			})
+		})
+	</script>
+</head>
+<body>
+	<!-- 오늘 날짜와 시간을 경고창으로 보여주고 다시 돌아오기 -->
+	<input type="button" value="오늘 날짜는?" data-cmd="date"><br>
+	<input type="button" value="지금 시간은?" data-cmd="time">
+</body>
+</html>
+
+

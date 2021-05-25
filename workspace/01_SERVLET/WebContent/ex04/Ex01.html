@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<!-- front단에서 back단 호출하기 -->
+	<h3>서블릿 열기</h3>
+	<a href="http://localhost:9090/01_SERVLET/Ex01">Ex01서블릿열기</a> <!-- 풀경로는 잘 안 쓴다(밑에 /ContextPath/urlmapping 추천) -->
+	<a href="/01_SERVLET/Ex01">Ex01서블릿열기</a> <!-- ContextPath와 url mapping만 남기기(추천) -->
+	<!-- 맨 앞에 '/'를 빼면 HTTP경로를 찾을 수 없다는 에러가 나온다. 이유는 ContextPath로 인식하지 않고 ex04/01_SERVLET 하위 폴더로 인식하기 때문이다 -->
+	<a href="/Ex01">Ex01서블릿열기</a> <!-- url mapping만 남기기? 매핑값만 적으면 안 된다. /로 시작하면 Ex01을 ContextPath로 인식해서 안 된다 -->
+</body>
+</html>
+
+
