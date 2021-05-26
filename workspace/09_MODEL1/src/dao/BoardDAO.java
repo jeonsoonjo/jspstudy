@@ -109,23 +109,22 @@ public class BoardDAO {
 		return dto;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 5. 게시글 삭제
+	public int deleteBoard(long idx) {
+		int result = 0;
+		try {
+			sql = "DELETE FROM BOARD WHERE IDX=?";
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, idx);
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(ps, null);
+		}
+		return result;
+	}
+
 	
 	
 }
