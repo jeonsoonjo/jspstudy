@@ -124,7 +124,36 @@ public class BoardDAO {
 		}
 		return result;
 	}
-
+	
+	// 6. 게시글 수정
+	public int updateBoard(BoardDTO dto) {
+		int result = 0;
+		try {
+			sql = "UPDATE BOARD SET TITLE=?, CONTENT=? WHERE IDX=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getContent());
+			ps.setLong(3, dto.getIdx());
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(ps, null);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

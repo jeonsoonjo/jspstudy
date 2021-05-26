@@ -61,7 +61,7 @@
 		
 		<!-- 작성자는 수정하기를 할 수 있다 -->
 		<c:if test="${loginDTO.id eq boardDTO.author}"> <!-- 로그인된 사람 == 게시글 작성한 사람 -->
-			<input type="button" value="수정하기" onclick="">
+			<input type="button" value="수정하기" onclick="location.href='updatePage.jsp'">
 			<input type="button" value="삭제하기" onclick="fn_delete()">
 		</c:if>
 		<input type="button" value="목록으로이동" onclick="location.href='boardList.jsp'">
