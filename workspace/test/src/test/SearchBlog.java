@@ -8,6 +8,9 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 
 public class SearchBlog {
 
@@ -40,8 +43,15 @@ public class SearchBlog {
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         String responseBody = get(apiURL,requestHeaders);
 
-
-        System.out.println(responseBody);
+        JSONParser parser = new JSONParser();
+        JSONObject obj = null;
+        try {
+        	obj = (JSONObject)parser.parse(responseBody);
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
+       
+        // System.out.println(responseBody);
     }
 
 

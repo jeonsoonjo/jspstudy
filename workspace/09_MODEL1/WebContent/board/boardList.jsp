@@ -1,3 +1,4 @@
+<%@page import="dto.PageVO"%>
 <%@page import="dao.BoardDAO"%>
 <%@page import="dto.BoardDTO"%>
 <%@page import="java.util.List"%>
@@ -55,8 +56,70 @@
 				session.removeAttribute("boardDTO");				
 			}
 		
-			List<BoardDTO> list = BoardDAO.getInstance().selectAll();
+			// Paging 처리
+			// 1. PageVO 객체 생성
+			PageVO pageVO = new PageVO();
+			
+			// 2. 전체 레코드 개수 구하기(totalRecord)
+			int totalRecord = BoardDAO.getInstance().getTotalRecord();
+			pageVO.setTotalRecord(totalRecord);
+			
+			// 3. 전체 페이지의 개수 구하기
+			pageVO.setTotalPage(totalPage);
+			
+			// 4. 파라미터 처리
+			// 1) page가 안 넘어오면  page = 1로 처리
+			// 2) page가 넘어오면 넘어온 page로 처리
+			String strPage = request.getParameter("page");
+			if(strPage != null){
+				pageVO.setPage(Integer.parseInt(strPage));
+			}
+			
+			// 5. 시작게시글 번호, 종료게시글 번호 구하기
+			/* 예시
+				1. 전체 11개 게시글이 있다 - totalRecord
+				2. 한 페이지에 3개의 게시글을 표시한다 - recordPerPage
+				page = 1, beginRecord=1, endRecord=3
+				page = 2, beginRecord=4, endRecord=6
+				page = 3, beginRecord=7, endRecord=9
+				page = 4, beginRecord=10, endRecord=11 
+			*/
+			// 시작게시글번호 = (현재페이지번호 - 1) * 페이지당레코드수 + 1
+			int beginRecord = (pageVO.getPage() -1 ) * pageVO.getRecordPerPage() + 1;
+			pageVO.setBeginRecord(beginRecord);
+			// 종료게시글번호 = 시작게시글번호 + 페이지당레코드수 - 1
+			// 단, 종료레코드번호와 전체레코드수 중 작은 값을 종료레코드번호로 사용한다
+			int endRecord = beginRecord + pageVO.getRecordPerPage() - 1;
+			endRecord = (endRecord < totalRecord) ? endRecord : totalRecord;
+			pageVO.setEndRecord(endRecord);
+
+			// 6. 블록당 시작페이지, 종료페이지 구하기
+			/* 예시
+				1. 전체 12개 페이지가 있다 - totalPage
+				2. 한 블록에 3개의 페이지를 표시한다 - pagePerBlock
+				page = 1~5, beginRecord=1, endRecord=5
+				page = 6~10, beginRecord=6, endRecord=10
+				page = 11~15, beginRecord=11, endRecord=15
+			*/
+			// 시작페이지번호 = ((현재페이지번호 - 1) / 블록당페이지수) * 블록당페이지수 + 1
+			int beginPage = ((pageVO.getPage() - 1) / pageVO.getPagePerBlock()) * pageVO.getPagePerBlock() + 1;
+			pageVO.setBeginPage(beginPage);
+			// 종료페이지번호 = 시작페이지번호 + 블록당페이지수 - 1
+			// 단, 종료페이지번호와 전체페이지수 중 작은 값을 종료페이지번호로 사용한다
+			int endPage = beginPage + pageVO.getPagePerBlock() - 1;
+			endPage = (endPage < pageVO.getTotalPage()) ? endPage : pageVO.getTotalPage();
+			pageVO.setEndPage(endPage);
+			// Paging 처리 끝
+			
+			// beginRecord ~ endRecord 사이의 목록만 가져오기
+			List<BoardDTO> list = BoardDAO.getInstance().selectAll(pageVO);
 			pageContext.setAttribute("list", list);
+			
+			/* 전체 게시글 보여줄 때
+				List<BoardDTO> list = BoardDAO.getInstance().selectAll();
+				pageContext.setAttribute("list", list);
+			*/
+			
 		%>
 		<table>
 			<thead>

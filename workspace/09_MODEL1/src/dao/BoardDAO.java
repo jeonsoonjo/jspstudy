@@ -8,6 +8,7 @@ import java.util.List;
 
 import db.util.DBConnector;
 import dto.BoardDTO;
+import dto.PageVO;
 
 public class BoardDAO {
 
@@ -46,11 +47,26 @@ public class BoardDAO {
 	}
 	
 	// 2. 전체 게시글 반환
-	public List<BoardDTO> selectAll(){
+	/*
+	 *  select b.rn, b.employee_id, b.first_name
+		  from (select rownum as rn, a.employee_id, a.first_name
+		          from (select employee_id, first_name
+		                  from employees
+		                 order by hire_date)a ) b
+		 where b.rn between 11 and 20;
+	 */
+	public List<BoardDTO> selectAll(PageVO pageVO){ // paging처리에 따른 결과를 반환하기 위해 매개변수 작성
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
-			sql = "SELECT IDX, AUTHOR, TITLE, CONTENT, HIT, POSTDATE FROM BOARD";
+			sql = "SELECT b.IDX, b.AUTHOR, b.TITLE, b.CONTENT, b.HIT, b.POSTDATE" + 
+				  "  FROM (SELECT ROWNUM AS rn, a.IDX, a.AUTHOR, a.TITLE, a.CONTENT, a.HIT, a.POSTDATE" +
+				  " 		 FROM (SELECT IDX, AUTHOR, TITLE, CONTENT, HIT, POSTDATE" +
+				  "					 FROM BOARD" +
+				  "					ORDER BY POSTDATE DESC)a )b" +
+				  " WHERE b.rn BETWEEN ? AND ?";
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, pageVO.getBeginRecord());
+			ps.setInt(2, pageVO.getEndRecord());
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				BoardDTO dto = new BoardDTO();
@@ -143,17 +159,24 @@ public class BoardDAO {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 7. 전체 게시글의 개수 반환
+	public int getTotalRecord() {
+		int totalRecord = 0;
+		try {
+			sql = "SELECT COUNT(IDX) AS TOTAL_RECORD FROM BOARD";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				totalRecord = rs.getInt(1); // coulmn(idx) 게시글 번호를 반환 -> 총 게시글의 개수
+				// totalRecord = rs.getInt("TOTAL_RECORD"); -> column name으로 해도 된다
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(ps, rs);
+		}
+		return totalRecord;
+	}
 	
 	
 }
