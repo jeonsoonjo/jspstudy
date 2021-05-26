@@ -23,7 +23,7 @@
 			justify-content: space-between;
 		}
 		.btn{
-			width: 150px;
+			width: 200px;
 			height: 50px;
 		}
 		.btn > a{

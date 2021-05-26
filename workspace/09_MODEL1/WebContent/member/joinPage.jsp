@@ -36,6 +36,7 @@
 				} else if(pw.val() != pw2.val()){
 					alert('비밀번호가 일치하지 않습니다. 확인해주세요!');
 					e.preventDefault();
+					pw2.focus();
 					return false;
 				} else if('${param.chk}' != 'true'){
 					alert('아이디 중복 체크를 진행하세요.');

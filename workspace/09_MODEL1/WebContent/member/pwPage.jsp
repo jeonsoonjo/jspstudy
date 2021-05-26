@@ -28,6 +28,7 @@
 				} else if(pw.val() != pw1.val()){
 					alert('새로 입력한 비밀번호가 일치하지 않습니다! 확인해주세요.');
 					e.preventDefault();
+					pw1.focus();
 					return false;
 				}
 			})

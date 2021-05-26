@@ -36,6 +36,7 @@
 			<input type="text" name="id" placeholder="ID"><br>
 			<input type="password" name="pw" placeholder="Password"><br><br>
 			<button>로그인</button>
+			<input type="button" name="join" value="회원가입" onclick="location.href='joinPage.jsp'">
 		</form>
 	</div>
 

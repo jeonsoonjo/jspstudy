@@ -13,13 +13,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Datalab {
-/*
- * 데이터랩 애플리케이션
- * 
- * 4jebcZ9PENMz7fliCkoR
- * A_VCuHzhc0
- * 
- */
+	/*
+	 * 데이터랩 애플리케이션
+	 * 
+	 * 4jebcZ9PENMz7fliCkoR
+	 * A_VCuHzhc0
+	 * 
+	 */
     public static void main(String[] args) {
         String clientId = "4jebcZ9PENMz7fliCkoR"; // 애플리케이션 클라이언트 아이디
         String clientSecret = "A_VCuHzhc0"; // 애플리케이션 클라이언트 시크릿
@@ -39,22 +39,58 @@ public class Datalab {
                 "\"device\":\"pc\"," +
                 "\"ages\":[\"1\",\"2\"]," +
                 "\"gender\":\"f\"}";
-
+        
+        // 네이버가 응답한 JSON
+        String responseBody = post(apiUrl, requestHeaders, requestBody);
+        // System.out.println(responseBody);
+        
+        // key값 빼기
         JSONParser parser = new JSONParser();
         JSONObject obj = null;
         try {
-        	obj = (JSONObject)parser.parse(requestBody);
-        	String startDate = obj.get("startDate").toString();
-        	String endDate = obj.get("endDate").toString();
-        	String timeUnit = obj.get("timeUnit").toString();
-        	
-        	JSONArray keywordGroups = (JSONArray)obj.get("keywordGroups");
-        } catch (Exception e) {
+	       	 obj = (JSONObject)parser.parse(requestBody);
+	       	 String startDate = obj.get("startDate").toString();
+	       	 String endDate = obj.get("endDate").toString();
+	       	 String timeUnit = obj.get("timeUnit").toString();
+	       	 String device = obj.get("device").toString();
+	       	 JSONArray ages = (JSONArray)obj.get("ages");
+	       	 for(int i=0; i<ages.size(); i++) {
+	       		 JSONObject obj2 = (JSONObject)ages.get(i);
+	       	 }
+	    } catch (Exception e) {
 			e.printStackTrace();
 		}
+        System.out.println(obj.get("startDate"));
+        System.out.println(obj.get("endDate"));
+        System.out.println(obj.get("timeUnit"));
+        System.out.println(obj.get("device"));
+        System.out.println(obj.get("ages"));
         
-        String responseBody = post(apiUrl, requestHeaders, requestBody);
-        System.out.println(responseBody);
+        // https://taein0910.github.io/blog/2019-07-11/java-crawaling/
+        // https://coldmater.tistory.com/124
+        // https://wowon.tistory.com/122
+        // https://velog.io/@garam0410/Java-OPEN-API-%ED%8C%8C%EC%8B%B1%ED%95%98%EA%B8%B0-JSON
+        // https://zoomkoding.github.io/codingtest/java/2019/09/20/REST-JSON.html
+        // https://sidepower.tistory.com/267?category=899155
+        // https://itrh.tistory.com/76
+        
+        FileOutputStream fos=null;
+		try {
+			fos=new FileOutputStream("test.txt");
+			String str1 = responseBody;
+			fos.write(str1.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(fos!=null) fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+        System.out.println(fos + " 파일이 생성되었습니다.");
+        
+        
     }
 
     private static String post(String apiUrl, Map<String, String> requestHeaders, String requestBody) {

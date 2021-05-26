@@ -65,7 +65,7 @@
 			pageVO.setTotalRecord(totalRecord);
 			
 			// 3. 전체 페이지의 개수 구하기
-			pageVO.setTotalPage(totalPage);
+			pageVO.setTotalPage();
 			
 			// 4. 파라미터 처리
 			// 1) page가 안 넘어오면  page = 1로 처리

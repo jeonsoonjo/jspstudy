@@ -13,7 +13,10 @@ public class Ex02_JSONArray {
 		
 		// JSONArray는 List 인터페이스를 구현한다
 		// 따라서, 같은 인터페이스를 구현한 ArrayList 클래스와 사용법이 같다
-		String responsedata="[{\"name\" : \"브레드\", \"age\" : 50}, {\"name\" : \"초코\", \"age\" : 10}]";
+		String responsedata="["
+				+ "{\"name\" : \"브레드\", \"age\" : 50},"
+				+ "{\"name\" : \"초코\", \"age\" : 10}"
+				+ "]";
 
 		JSONParser parser=new JSONParser();
 		

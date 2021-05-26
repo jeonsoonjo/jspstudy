@@ -33,7 +33,7 @@ public class PageVO {
 		return totalPage;
 	}
 	// 전체 페이지는 전체 레코드 개수와 한 페이지에 표시되는 게시글 개수로 계산한다
-	public void setTotalPage(int totalPage) {
+	public void setTotalPage() {
 		totalPage = totalRecord / recordPerPage;
 		if(totalRecord % recordPerPage != 0) { // 나누어 떨어지지 않았을 때
 			totalPage++;
