@@ -30,7 +30,6 @@ public class MemberDAO {
 		return dao;
 	}
 	
-	
 	// 1. 회원가입
 	public int save(MemberDTO dto) { // join.jsp가 전달한 dto
 		int result = 0;

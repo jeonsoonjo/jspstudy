@@ -5,22 +5,21 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-
+public class Datalab {
 /*
- * 데이터랩 연습 아이디, 비번
+ * 데이터랩 애플리케이션
+ * 
  * 4jebcZ9PENMz7fliCkoR
  * A_VCuHzhc0
-*/
-
-public class Datalab {
-
+ * 
+ */
     public static void main(String[] args) {
         String clientId = "4jebcZ9PENMz7fliCkoR"; // 애플리케이션 클라이언트 아이디
         String clientSecret = "A_VCuHzhc0"; // 애플리케이션 클라이언트 시크릿
@@ -31,8 +30,7 @@ public class Datalab {
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         requestHeaders.put("Content-Type", "application/json");
-        String responseBody = get(apiUrl, requestHeaders);
-        
+
         String requestBody = "{\"startDate\":\"2017-01-01\"," +
                 "\"endDate\":\"2017-04-30\"," +
                 "\"timeUnit\":\"month\"," +
@@ -41,17 +39,19 @@ public class Datalab {
                 "\"device\":\"pc\"," +
                 "\"ages\":[\"1\",\"2\"]," +
                 "\"gender\":\"f\"}";
-        
-        // 파싱
+
         JSONParser parser = new JSONParser();
         JSONObject obj = null;
         try {
-        	obj = (JSONObject)parser.parse(responseBody);
-        	Date startDate = (Date)obj.get("startDate").toString();
+        	obj = (JSONObject)parser.parse(requestBody);
+        	String startDate = obj.get("startDate").toString();
+        	String endDate = obj.get("endDate").toString();
+        	String timeUnit = obj.get("timeUnit").toString();
+        	
+        	JSONArray keywordGroups = (JSONArray)obj.get("keywordGroups");
         } catch (Exception e) {
 			e.printStackTrace();
 		}
-        
         
         String responseBody = post(apiUrl, requestHeaders, requestBody);
         System.out.println(responseBody);
