@@ -11,6 +11,9 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<style>
+		body{
+			font-size: 14px;
+		}
 		.container{
 			width: 500px;
 			margin: 100px auto;
