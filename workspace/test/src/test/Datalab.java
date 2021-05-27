@@ -66,14 +66,6 @@ public class Datalab {
         System.out.println(obj.get("device"));
         System.out.println(obj.get("ages"));
         
-        // https://taein0910.github.io/blog/2019-07-11/java-crawaling/
-        // https://coldmater.tistory.com/124
-        // https://wowon.tistory.com/122
-        // https://velog.io/@garam0410/Java-OPEN-API-%ED%8C%8C%EC%8B%B1%ED%95%98%EA%B8%B0-JSON
-        // https://zoomkoding.github.io/codingtest/java/2019/09/20/REST-JSON.html
-        // https://sidepower.tistory.com/267?category=899155
-        // https://itrh.tistory.com/76
-        
         FileOutputStream fos=null;
 		try {
 			fos=new FileOutputStream("test.txt");
@@ -89,7 +81,6 @@ public class Datalab {
 			}
 		}
         System.out.println(fos + " 파일이 생성되었습니다.");
-        
         
     }
 

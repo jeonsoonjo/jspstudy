@@ -40,6 +40,10 @@
 		td:nth-of-type(3) { width: 100px; }
 		td:nth-of-type(4) { width: 100px; }
 		td:nth-of-type(5) { width: 150px; }
+		
+		.paging{
+			text-align: center;
+		}
 	</style>
 </head>
 <body>
@@ -109,6 +113,7 @@
 			int endPage = beginPage + pageVO.getPagePerBlock() - 1;
 			endPage = (endPage < pageVO.getTotalPage()) ? endPage : pageVO.getTotalPage();
 			pageVO.setEndPage(endPage);
+			pageContext.setAttribute("pageVO", pageVO);
 			// Paging 처리 끝
 			
 			// beginRecord ~ endRecord 사이의 목록만 가져오기
@@ -142,6 +147,37 @@
 					</tr>
 				</c:forEach>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5">
+						<%-- 1. 이전 블록으로 이동 : 1블록은 이전 블록이 없다 -> 비활성화 --%>
+						<c:if test="${pageVO.beginPage < pageVO.pagePerBlock}">
+							이전&nbsp;
+						</c:if>
+						<c:if test="${pageVO.beginPage >= pageVO.pagePerBlock}">
+							<a href="/09_MODEL1/board/boardList.jsp?=${pageVO.beginPage -1}">이전&nbsp;</a>
+						</c:if>
+						
+						<%-- 2. 페이지 번호 --%>
+						<c:forEach var="page" begin="${pageVO.beginPage}" end="${pageVO.endPage}" step="1">
+							<c:if test="${pageVO.page == page}"> <!-- 현재 페이지 이면 -->
+								<span class="now_page">${page}&nbsp;</span>
+							</c:if>
+							<c:if test="${pageVO.page != page}">
+								<a href="/09_MODEL1/board/boardList.jsp?page=${page}">${page}&nbsp;</a>
+							</c:if>
+						</c:forEach>
+						
+						<%-- 3. 다음 블록으로 이동 --%>
+						<c:if test="${pageVO.endPage < pageVO.totalPage}">
+							<a href="/09_MODEL1/board/boardList.jsp?page=${pageVO.endPage +1}">다음&nbsp;</a>
+						</c:if>
+						<c:if test="${pageVO.endPage >= pageVO.totalPage}">
+							 다음&nbsp; 
+						</c:if>
+					</td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 
