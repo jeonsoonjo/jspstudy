@@ -8,35 +8,39 @@ import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-
+@SuppressWarnings("resource")
 public class SearchBlog {
-
-/*
- * 검색(블로그) 애플리케이션
- * 
- * 5XNJ9rsPd6cqNVvzTzhK
- * Oo9Pg0h_GH
- * 
- */
+	
+	/*
+	 * 영화검색 애플리케이션
+	 * 
+	 * 9a5xHErBtTfKYNwPF9s0
+	 * _w_IffuewE
+	 * 
+	*/
+	
     public static void main(String[] args) {
     	
-        String clientId = "5XNJ9rsPd6cqNVvzTzhK"; //애플리케이션 클라이언트 아이디값"
-        String clientSecret = "Oo9Pg0h_GH"; //애플리케이션 클라이언트 시크릿값"
-        
-        int display = 5;
+        String clientId = "9a5xHErBtTfKYNwPF9s0"; //애플리케이션 클라이언트 아이디값"
+        String clientSecret = "_w_IffuewE"; //애플리케이션 클라이언트 시크릿값"
+
+        System.out.println("영화 제목을 입력하세요");
+		Scanner sc = new Scanner(System.in);
+        String genre = sc.next();
         String text = null;
         try {
-           text = URLEncoder.encode("그린팩토리", "UTF-8");
+           text = URLEncoder.encode("코미디", "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/blog.json?query=" + text + "&display=" + display + "&"; // json 결과
+        String apiURL = "https://openapi.naver.com/v1/search/blog.json?query=" + text; // json 결과
         //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
 
         Map<String, String> requestHeaders = new HashMap<>();
@@ -71,6 +75,9 @@ public class SearchBlog {
 //        		"		]\r\n" + 
 //        		"}";
         
+        
+        
+        
         // 파싱
         try {
         	JSONParser parser = new JSONParser();
@@ -80,6 +87,7 @@ public class SearchBlog {
         		JSONObject results = (JSONObject)items.get(i);
         		String title = (String)results.get("title");
         		String link = (String)results.get("link");
+        		
 	        	StringBuffer sb = new StringBuffer();
 	        	sb.append("제목: " + title + ", 링크: " + link);
 	        	System.out.println(sb.toString());
@@ -90,7 +98,7 @@ public class SearchBlog {
 		
 		FileOutputStream fos=null;
 		try {
-			fos=new FileOutputStream("blog.txt");
+			fos=new FileOutputStream("movie.txt");
 			String str1 = responseBody;
 			fos.write(str1.getBytes());
 		} catch (IOException e) {
