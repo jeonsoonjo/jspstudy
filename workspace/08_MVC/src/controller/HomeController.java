@@ -24,10 +24,10 @@ public class HomeController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		String[] arr=request.getRequestURI().split("/");
-		String cmd=arr[arr.length-1];
+		String[] arr = request.getRequestURI().split("/");
+		String cmd = arr[arr.length-1];
 		
-		StudentCommand command=ModelMapper.getInstance().getModel(cmd);
+		StudentCommand command = ModelMapper.getInstance().getModel(cmd);
 		
 		ModelAndView mav=null;
 		mav=command.execute(request, response);

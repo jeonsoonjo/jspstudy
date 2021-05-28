@@ -5,7 +5,7 @@ import model.StudentScoreCommand;
 
 public class ModelMapper {
 
-	// sigleton
+	// singleton
 	private static ModelMapper mapper=new ModelMapper();
 	private ModelMapper() {}
 	public static ModelMapper getInstance() {
