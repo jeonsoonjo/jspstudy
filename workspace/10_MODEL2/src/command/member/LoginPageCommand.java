@@ -9,8 +9,10 @@ public class LoginPageCommand implements MemberCommand {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
+		
 		// 로그인을 할 수 있는 login.jsp로 이동
-		return new ModelAndView("/10_MODEL2/member/login.jsp", true);
+		return new ModelAndView("/10_MODEL2/member/login.jsp", true); 
+		
 	}
 
 }

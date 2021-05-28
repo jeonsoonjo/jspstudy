@@ -42,29 +42,82 @@
 
 <script>
 	$(document).ready(function(){
-		const f = $('#f');
+		
 		const id = $('#id');
-		const pw = $('#pw');
-		const pw2 = $('#pw2');
-		const email = $('#email');
 		const id_message = $('#id_message');
+		function idCheck(){ // submit할 때 점검용으로 사용
+			let result = false;
+			if(id.val() == ''){ // 예를 들어 공백처리를 한 것이지, 정규식 표현을 사용하면 된다
+				id_message.text('아이디는 필수입니다');
+			} else{
+				id_message.text('아이디 통과');
+				result = true;
+			}
+			return result;
+		}
+		id.blur(function(){ // id 입력하고 빠져나갈 때에도 idCheck() 메소드 호출해서 점검
+			idCheck();
+		})
+		
+		const pw = $('#pw');
 		const pw_message = $('#pw_message');
+		function pwCheck(){
+			let result = false;
+			if(pw.val() == ''){
+				pw_message.text('비밀번호는 필수입니다');
+			} else{
+				pw_message.text('비밀번호 통과');
+				result = true;
+			}
+			return result;
+		}
+		pw.blur(function(){
+			pwCheck();
+		})
+		
+		const pw2 = $('#pw2');
 		const pw2_message = $('#pw2_message');
+		function pw2Check(){
+			let result = false;
+			if(pw2.val() == ''){
+				pw2_message.text('비밀번호 확인은 필수입니다');
+			} else if(pw.val() != pw2.val()){
+				pw2_message.text('비밀번호가 일치하지 않습니다. 확인해주세요');
+			} else{
+				pw2_message.text('비밀번호 확인 통과');
+				result = true;
+			}
+			return result;
+		}
+		pw2.blur(function(){
+			pw2Check();
+		})
+		
+		const email = $('#email');
 		const email_message = $('#email_message');
+		function emailCheck(){
+			let result = false;
+			if(email.val() == ''){
+				email_message.text('이메일은 필수입니다');
+			} else{
+				email_message.text('이메일 통과');
+				result = true;
+			}
+			return result;
+		}
+		email.blur(function(){
+			emailCheck();
+		})
+		
+		const f = $('#f');
 		f.submit(function(e){
-			if(id.val() == ''){
-				id_message.text('아이디를 입력하세요');
-				id.focus();
-				e.preventDefault();
-				return false;
-			} else if(pw.val() == ''){
-				id_message.text('');
-				pw_message.text('비밀번호를 입력하세요');
-				pw.focus();
+			if(!idCheck() || !pwCheck() || !pw2Check() || !emailCheck()){ // 하나라도 체크를 안 했으면
+				alert('회원가입 정보를 확인하세요');
 				e.preventDefault();
 				return false;
 			}
 		})
+		
 	})
 </script>
 
@@ -73,7 +126,7 @@
 	<form id="f" method="post">
 		<!-- 아이디 -->
 		<span class="title">아이디</span><br>
-		<input type="text" id="id" name="id"><br>
+		<input type="text" id="id" name="id" autofocus><br>
 		<span class="message" id="id_message"></span><br>
 		<!-- 비밀번호 -->
 		<span class="title">비밀번호</span><br>

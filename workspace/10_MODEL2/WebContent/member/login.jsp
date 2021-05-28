@@ -63,7 +63,7 @@
 
 <!-- 로그인 화면 생성 -->
 <div class="login_form">
-	<form id="f" method="post">
+	<form action="/10_MODEL2/login.m" id="f" method="post">
 		<input type="text" id="id" name="id" placeholder="ID"><br>
 		<span class="message" id="id_message"></span><br>
 		<input type="password" id="pw" name="pw" placeholder="Password"><br>

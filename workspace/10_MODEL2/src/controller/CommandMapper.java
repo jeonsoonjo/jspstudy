@@ -1,7 +1,9 @@
 package controller;
 
 import command.member.JoinPageCommand;
+import command.member.LoginCommand;
 import command.member.LoginPageCommand;
+import command.member.LogoutCommand;
 import command.member.MemberCommand;
 
 public class CommandMapper {
@@ -27,6 +29,12 @@ public class CommandMapper {
 			break;
 		case "joinPage.m" :
 			command = new JoinPageCommand();
+			break;
+		case "login.m" :
+			command = new LoginCommand();
+			break;
+		case "logout.m" :
+			command = new LogoutCommand();
 			break;
 		}
 		return command;
