@@ -19,17 +19,17 @@
 
 	<div class="container">
 		<header>
-			<a href="#">
+			<a href="/10_MODEL2/index.do">
 				<img src="<%=request.getContextPath()%>/assets/images/daum.png" alt="로고" style="width: 200px;">
 			</a>
 			<nav>
 				<ul>
-					<li><a href="#">회원가입</a></li>
+					<li><a href="/10_MODEL2/joinPage.m">회원가입</a></li>
 					<li><a href="/10_MODEL2/loginPage.m">로그인</a></li>
 					<li><a href="#">마이페이지</a></li>
 				</ul>
 			</nav>
 		</header>
-		
+		<hr>
 		<section>
 

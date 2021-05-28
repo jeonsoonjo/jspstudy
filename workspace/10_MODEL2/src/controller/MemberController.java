@@ -27,7 +27,7 @@ public class MemberController extends HttpServlet {
 
 		// 요청 확인
 		// 요청주소 : request.getRequestURI() == /10_MODEL2/loginPage.m 
-		// split("/") == {"", ""} 으로 분리한다
+		// split("/") == {"", ""} 으로 분리한다 -> m이 들어가면 controller에서 처리
 		String[] arr = request.getRequestURI().split("/");
 		String cmd = arr[arr.length-1]; // cmd == "loginPage.m"이 들어있음
 		

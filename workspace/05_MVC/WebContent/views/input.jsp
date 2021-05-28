@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- 5/28 서버프로그램구현 평가(완벽하게 숙지하기!) -->
+	<!-- 6/14 서버프로그램구현 평가(완벽하게 숙지하기!) -->
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<script>
