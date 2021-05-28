@@ -13,7 +13,7 @@ public class LoginCommand implements MemberCommand {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		// login.jsp에서 전송한 파라미터 처리
+		// 1. login.jsp에서 전송한 파라미터 처리
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		

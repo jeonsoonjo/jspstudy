@@ -117,13 +117,12 @@
 				return false;
 			}
 		})
-		
 	})
 </script>
 
 
 <div class="join_form">
-	<form id="f" method="post">
+	<form action="join.m" id="f" method="post">
 		<!-- 아이디 -->
 		<span class="title">아이디</span><br>
 		<input type="text" id="id" name="id" autofocus><br>
