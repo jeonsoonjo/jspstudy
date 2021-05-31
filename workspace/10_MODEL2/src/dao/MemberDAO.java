@@ -167,21 +167,37 @@ public class MemberDAO {
 		return result;
 	}
 	
+	// 8. 회원탈퇴(삭제)
+	public int deleteMember(long no) {
+		int result = 0;
+		try {
+			con = dataSource.getConnection();
+			sql = "DELETE FROM MEMBER WHERE NO=?";
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, no);
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+		return result;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 9. 회원 접속 정보 삭제
+	public void deleteMemberLog(String id) {
+		try {
+			con = dataSource.getConnection();
+			sql = "DELETE FROM MEMBER_LOG WHERE ID=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+	}
 	
 	
 }

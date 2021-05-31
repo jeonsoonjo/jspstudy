@@ -32,7 +32,7 @@ public class ApiSearchMovie {
 		Scanner sc = new Scanner(System.in);
         String genre = sc.next();
         try {
-        	genre = URLEncoder.encode("코미디", "UTF-8");
+        	genre = URLEncoder.encode(genre, "UTF-8");
         	String apiURL = "https://openapi.naver.com/v1/search/movie.json?query=" + genre; // json 결과
             //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
         	

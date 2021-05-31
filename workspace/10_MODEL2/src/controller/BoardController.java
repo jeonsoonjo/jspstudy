@@ -7,15 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import command.member.LoginPageCommand;
-import command.member.MemberCommand;
+import command.board.BoardCommand;
 import common.ModelAndView;
 
-@WebServlet("*.m")
-public class MemberController extends HttpServlet {
+@WebServlet("*.b")
+public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public MemberController() {
+    public BoardController() {
         super();
     }
 
@@ -26,26 +25,24 @@ public class MemberController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 
 		// 요청 확인
-		// 요청주소 : request.getRequestURI() == /10_MODEL2/loginPage.m 
-		// split("/") == {"", ""} 으로 분리한다 -> m이 들어가면 controller에서 처리
 		String[] arr = request.getRequestURI().split("/");
-		String cmd = arr[arr.length-1]; // cmd == "loginPage.m"이 들어있음
+		String cmd = arr[arr.length-1];
 		
-		// 요청을 전달하면 그 요청을 처리할  Model(Command)을 반환하는 MemberCommandMapper 클래스를 Command를 받는다
-		MemberCommand command = MemberCommandMapper.getInstance().getCommand(cmd);
+		// 요청을 처리한 Model을 반환하는 BoardCommandMapper 클래스를 Command를 받는다
+		BoardCommand command = BoardCommandMapper.getInstance().getCommand(cmd);
 		
 		ModelAndView mav = null;
 		if(command != null) {
 			mav = command.execute(request, response);
 		}
-		if(mav == null) { // mav가 null이라면 command가 다 처리하고 이동할 페이지가 없음을 의미한다. return으로 종료 -> doGet() 메소드 종료
+		if(mav == null) {
 			return;
 		}
 		if(mav.isRedirect()) {
 			response.sendRedirect(mav.getView());
 		} else {
 			request.getRequestDispatcher(mav.getView()).forward(request, response);
-		}
+		}	
 		
 	}
 
