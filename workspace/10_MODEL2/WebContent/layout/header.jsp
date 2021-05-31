@@ -25,18 +25,17 @@
 			</a>
 			<nav>
 				<ul>
-					<c:if test="${loginDTO == null}">
+					<c:if test="${loginDTO == null}"> <!-- 로그인 안 했을 때 -->
 						<li><a href="/10_MODEL2/joinPage.m">회원가입</a></li>
 						<li><a href="/10_MODEL2/loginPage.m">로그인</a></li>
-						<li><a href="#">마이페이지</a></li>
+						<li><a href="/10_MODEL2/loginPage.m">마이페이지</a></li>
 					</c:if>
 					
-					<c:if test="${loginDTO != null}">
+					<c:if test="${loginDTO != null}"> <!-- 로그인 했을 때 -->
 						<li><a href="/10_MODEL2/logout.m">로그아웃</a></li>
-						<li><a href="#">마이페이지</a></li>
+						<li><a href="/10_MODEL2/myPage.m">마이페이지</a></li>
 					</c:if>
 				</ul>
-				<hr>
 				
 				<p>
 					<c:if test="${loginDTO != null}">

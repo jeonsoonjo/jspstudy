@@ -27,25 +27,25 @@ public class JoinCommand implements MemberCommand {
 		int result = MemberDAO.getInstance().join(dto);
 		
 		// 4. 응답을 만들 PrintWriter
-			try {
-				PrintWriter out = response.getWriter();
-				if(result > 0) {
-					out.println("<script>");
-					out.println("alert('가입되었습니다!')");
-					out.println("location.href='/10_MODEL2/loginPage.m'");
-					out.println("</script>");
-				} else {
-					out.println("<script>");
-					out.println("alert('회원 가입에 실패했습니다')");
-					out.println("location.href='/10_MODEL2/joinPage.m'");
-					out.println("</script>");
-				}
-				out.flush();
-				out.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+		try {
+			PrintWriter out = response.getWriter();
+			if(result > 0) {
+				out.println("<script>");
+				out.println("alert('가입되었습니다!')");
+				out.println("location.href='/10_MODEL2/loginPage.m'");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('회원 가입에 실패했습니다')");
+				out.println("location.href='/10_MODEL2/joinPage.m'");
+				out.println("</script>");
 			}
-			return null;
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

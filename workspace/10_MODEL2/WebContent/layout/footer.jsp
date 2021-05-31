@@ -3,7 +3,6 @@
     
 		</section>
 		
-		<hr>
 		<footer>
 			<p>공지사항&gt; 개인정보 처리방침 개정 안내</p>
 			<p>Copyright Kakao Corp. All rights reserved.</p>
