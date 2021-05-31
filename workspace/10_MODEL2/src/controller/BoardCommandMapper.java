@@ -1,6 +1,7 @@
 package controller;
 
 import command.board.BoardCommand;
+import command.board.InsertBoardCommand;
 import command.board.InsertBoardPageCommand;
 import command.board.SelectListBoardCommand;
 
@@ -24,6 +25,9 @@ public class BoardCommandMapper {
 			break;
 		case "insertBoardPage.b" :
 			command = new InsertBoardPageCommand();
+			break;
+		case "insertBoard.b" :
+			command = new InsertBoardCommand();
 			break;
 		
 		
