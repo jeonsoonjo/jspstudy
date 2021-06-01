@@ -9,20 +9,16 @@
 <link rel="stylesheet" href="../assets/css/layout.css"> <!-- jsp화면이 깨질 때는 css link 추가  -->
 
 <style>
-	.my_form{
+	.my_form {
 		width: 300px;
 		margin: 0 auto;
 	}
-	.title{
-		font-size: 14px;
-		font-weight: 600;
-	}
-	#f input:not([type=button]){
-		padding: 10px;
-		width: 100%;	
+	#f input:not([type=button]) {
+		padding: 5px;
+		width: 100%;
 		height: 50px;
 	}
-	#f input[type=button]{
+	#f input[type=button] {
 		width: 100%;
 		height: 50px;
 		line-height: 50px;
@@ -30,13 +26,12 @@
 		border: none;
 		font-size: 18px;
 	}
-	#f input[type=button]:hover{
-		color: white;
-		font-weight: 500;
+	#f input[type=button]:hover {
+		cursor: pointer;
 	}
-	.message{
-		font-size: 12px;
-		color: crimson;
+	.title {
+		font-weight: 700;
+		font-size: 14px;
 	}
 </style>
 
@@ -72,25 +67,28 @@
 
 <div class="my_form">
 	<form id="f" method="post">
-		<!-- 아이디 -->
+		<%-- 아이디 --%>
 		<span class="title">아이디</span><br>
 		${loginDTO.id}<br><br>
-		<!-- 비밀번호 -->
+		
+		<%-- 비밀번호 --%>
 		<span class="title">비밀번호 변경</span><br>
-		<input type="button" id="pw_btn" value="비밀번호 변경하기"><br><br>
-		<!-- 이름 -->
+		<input type="button" value="비밀번호 변경하기" id="pw_btn"><br><br>
+		
+		<%-- 이름 --%>
 		<span class="title">이름</span><br>
 		<input type="text" id="name" name="name" value="${loginDTO.name}"><br><br>
-		<!-- 이메일 -->
+		
+		<%-- 이메일 --%>
 		<span class="title">이메일</span><br>
-		<input type="text" id="email" name="email" value="${loginDTO.email}"><br><br>	
-
-		<input type="button" id="update_btn" value="회원정보수정"><br><br> <!-- 일반 버튼은(input type=button) submit을 할 수 없기에 script에 메소드를 생성해 submit해야 한다  -->
-		<input type="button" id="delete_btn" value="회원탈퇴">
+		<input type="text" id="email" name="email" value="${loginDTO.email}"><br><br>
+		
+		<%-- 회원정보수정, 탈퇴 --%>
+		<input type="button" value="회원정보수정" id="update_btn"><br><br>
+		<input type="button" value="회원탈퇴" id="delete_btn">
 	</form>
 </div>
 
 <%@ include file="../layout/footer.jsp" %>
-
 
 

@@ -8,34 +8,37 @@
 
 <link rel="stylesheet" href="../assets/css/layout.css">
 <style>
-	.insert_form{
-		width: 500px;
+	.insert_form {
+		width: 600px;
 		margin: 0 auto;
 	}
-	input[type=text]{
+	input[type=text] {
 		padding: 5px;
 		width: 100%;
 		height: 50px;
 	}
-	textarea{
+	textarea {
+		padding: 5px;
 		width: 100%;
 		height: 200px;
 	}
-	.btns{
+	.btns {
+		margin: 0 auto;
 		width: 500px;
 		text-align: center;
 	}
-	.btn{
+	.btn {
 		width: 150px;
 		height: 40px;
 		line-height: 40px;
 		background: orange;
 		border: none;
 		outline: none;
-		font-size: 16px;
 	}
-	.btn:hover{
+	.btn:hover {
+		background: crimson;
 		color: white;
+		cursor: pointer;
 	}
 </style>
 <script>
@@ -65,11 +68,14 @@
 	
 	<form id="f" method="post" enctype="multipart/form-data">
 		<p class="title">작성자</p>
-		<input type="text" id="author" name="author" value="${loginDTO.id}" readonly><br>
+		<input type="text" id="author" name="author" value="${loginDTO.id}" readonly><br><br>
+		
 		<p class="title">제목</p>
-		<input type="text" id="title"  name="title" autofocus><br>
+		<input type="text" id="title"  name="title" autofocus><br><br>
+		
 		<p class="title">첨부</p>
-		<input type="file" id="filename" name="filename">
+		<input type="file" id="filename" name="filename"><br><br>
+		
 		<p class="content">내용</p>
 		<textarea id="content" name="content"></textarea><br><br>
 		<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">

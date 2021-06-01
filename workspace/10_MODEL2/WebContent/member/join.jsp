@@ -9,20 +9,16 @@
 <link rel="stylesheet" href="../assets/css/layout.css"> <!-- jsp화면이 깨질 때는 css link 추가  -->
 
 <style>
-	.join_form{
+	.join_form {
 		width: 300px;
 		margin: 0 auto;
 	}
-	.title{
-		font-size: 14px;
-		font-weight: 600;
-	}
-	#f input:not([type=button]){
-		padding: 10px;
-		width: 100%;	
+	#f input:not([type=button]) {
+		padding: 5px;
+		width: 100%;
 		height: 50px;
 	}
-	#f button{
+	#f button {
 		width: 100%;
 		height: 50px;
 		line-height: 50px;
@@ -30,13 +26,16 @@
 		border: none;
 		font-size: 18px;
 	}
-	#f button:hover{
-		color: white;
-		font-weight: 500;
+	#f button:hover {
+		cursor: pointer;
 	}
-	.message{
+	.message {
 		font-size: 12px;
 		color: crimson;
+	}
+	.title {
+		font-weight: 700;
+		font-size: 14px;
 	}
 </style>
 
@@ -123,27 +122,32 @@
 
 <div class="join_form">
 	<form action="join.m" id="f" method="post">
-		<!-- 아이디 -->
+		<%-- 아이디 --%>
 		<span class="title">아이디</span><br>
-		<input type="text" id="id" name="id" autofocus><br>
+		<input type="text" name="id" id="id" autofocus><br>
 		<span class="message" id="id_message"></span><br>
-		<!-- 비밀번호 -->
+		
+		<%-- 비밀번호 --%>
 		<span class="title">비밀번호</span><br>
-		<input type="password" id="pw" name="pw"><br>
+		<input type="password" name="pw" id="pw"><br>
 		<span class="message" id="pw_message"></span><br>
-		<!-- 비밀번호 확인 -->
+		
+		<%-- 비밀번호 확인 --%>
 		<span class="title">비밀번호 확인</span><br>
 		<input type="password" id="pw2"><br>
 		<span class="message" id="pw2_message"></span><br>
-		<!-- 이름 -->
+		
+		<%-- 이름 --%>
 		<span class="title">이름</span><br>
 		<input type="text" id="name" name="name"><br><br>
-		<!-- 이메일 -->
+		
+		<%-- 이메일 --%>
 		<span class="title">이메일</span><br>
 		<input type="text" id="email" name="email"><br>
-		<span class="message" id="email_message"></span><br><br>	
-		<!-- 인증(캡차, SMS, 이메일) -->
-		<!-- 약관 동의 -->
+		<span class="message" id="email_message"></span><br><br>
+		
+		<%-- 인증(캡차, SMS, 이메일) --%>
+		<%-- 약관 동의 --%>
 		<button>회원가입</button>
 	</form>
 </div>

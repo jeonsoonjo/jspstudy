@@ -9,20 +9,16 @@
 <link rel="stylesheet" href="../assets/css/layout.css"> <!-- jsp화면이 깨질 때는 css link 추가  -->
 
 <style>
-	.pw_form{
+	.pw_form {
 		width: 300px;
 		margin: 0 auto;
 	}
-	.title{
-		font-size: 14px;
-		font-weight: 600;
-	}
-	#f input:not([type=button]){
-		padding: 10px;
-		width: 100%;	
+	#f input:not([type=button]) {
+		padding: 5px;
+		width: 100%;
 		height: 50px;
 	}
-	#f button{
+	#f button {
 		width: 100%;
 		height: 50px;
 		line-height: 50px;
@@ -30,13 +26,16 @@
 		border: none;
 		font-size: 18px;
 	}
-	#f button:hover{
-		color: white;
-		font-weight: 500;
+	#f button:hover {
+		cursor: pointer;
 	}
-	.message{
+	.message {
 		font-size: 12px;
 		color: crimson;
+	}
+	.title {
+		font-weight: 700;
+		font-size: 14px;
 	}
 </style>
 
@@ -76,20 +75,21 @@
 
 <div class="pw_form">
 	<form action="/10_MODEL2/updatePw.m" id="f" method="post">
-		<!-- 현재 비밀번호 -->
+		<%-- 현재 비밀번호 --%>
 		<span class="title">현재 비밀번호</span><br>
-		<input type="password" id="pw0" name="pw0"><br>
+		<input type="password" name="pw0" id="pw0"><br>
 		<span class="message" id="pw0_message"></span><br>
-		<!-- 새 비밀번호 -->
+		
+		<%-- 새 비밀번호 --%>
 		<span class="title">새 비밀번호</span><br>
-		<input type="password" id="pw" name="pw"><br>
+		<input type="password" name="pw" id="pw"><br>
 		<span class="message" id="pw_message"></span><br>
-		<!-- 비밀번호 확인 -->
+		
+		<%-- 비밀번호 확인 --%>
 		<span class="title">비밀번호 확인</span><br>
-		<input type="password" id="pw1" name="pw1"><br>
-		<span class="message" id="pw1_message"></span><br><br>
-
-		<button>비밀번호 변경하기</button>
+		<input type="password" name="pw1" id="pw1"><br>
+		<span class="message" id="pw1_message"></span><br>
+		<button>비밀번호변경하기</button>
 	</form>
 </div>
 

@@ -9,17 +9,16 @@
 <link rel="stylesheet" href="../assets/css/layout.css"> <!-- jsp화면이 깨질 때는 css link 추가  -->
 
 <style>
-	.login_form{
+	.login_form {
 		width: 300px;
-		margin: 0 auto;
-		margin-top: 30px;
+		margin: 50px auto;
 	}
-	#f input{
-		padding: 10px;
+	#f input {
+		padding: 5px;
 		width: 100%;
 		height: 50px;
 	}
-	#f button{
+	#f button {
 		width: 100%;
 		height: 50px;
 		line-height: 50px;
@@ -27,11 +26,10 @@
 		border: none;
 		font-size: 18px;
 	}
-	#f button:hover{
-		color: white;
-		font-weight: 500;
+	#f button:hover {
+		cursor: pointer;
 	}
-	.message{
+	.message {
 		font-size: 12px;
 		color: crimson;
 	}
@@ -64,10 +62,10 @@
 <!-- 로그인 화면 생성 -->
 <div class="login_form">
 	<form action="/10_MODEL2/login.m" id="f" method="post">
-		<input type="text" id="id" name="id" placeholder="ID"><br>
+		<input type="text" name="id" id="id" placeholder="ID"><br>
 		<span class="message" id="id_message"></span><br>
-		<input type="password" id="pw" name="pw" placeholder="Password"><br>
-		<span class="message" id="pw_message"></span><br><br>
+		<input type="password" name="pw" id="pw" placeholder="Password"><br>
+		<span class="message" id="pw_message"></span><br>
 		<button>로그인</button>
 	</form>
 </div>
