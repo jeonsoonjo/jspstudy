@@ -7,6 +7,8 @@ import command.board.InsertBoardCommand;
 import command.board.InsertBoardPageCommand;
 import command.board.SelectListBoardCommand;
 import command.board.SelectOneBoardCommand;
+import command.board.UpdateBoardCommand;
+import command.board.UpdateBoardPageCommand;
 
 public class BoardCommandMapper {
 
@@ -40,6 +42,12 @@ public class BoardCommandMapper {
 			break;
 		case "deleteBoard.b" :
 			command = new DeleteBoardCommand();
+			break;
+		case "updateBoardPage.b" :
+			command = new UpdateBoardPageCommand();
+			break;
+		case "updateBoard.b" : 
+			command = new UpdateBoardCommand();
 			break;
 		}
 		return command;

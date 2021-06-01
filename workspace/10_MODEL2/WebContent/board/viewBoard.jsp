@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="게시글 작성" name="title" />
+	<jsp:param value="${dto.idx}번 게시글" name="title" />
 </jsp:include>
 
 <link rel="stylesheet" href="../assets/css/layout.css">    
@@ -57,7 +57,14 @@
 <div>
 	<input type="button" value="목록보기" onclick="location.href='${referer}'">
 	<c:if test="${loginDTO.id == dto.author}"> <!-- 작성자만 볼 수 있다(작성자id == 게시글 작성자author) -->
-		<input type="button" id="update_btn" value="수정하기">
+		<form action="/10_MODEL2/updateBoardPage.b" method="post">
+			<input type="hidden" name="idx" value="${dto.idx}">
+			<input type="hidden" name="title" value="${dto.title}">
+			<input type="hidden" name="content" value="${dto.content}">
+			<input type="hidden" name="filename" value="${dto.filename}">
+			<button>수정하기</button>
+		</form>
+		
 		<input type="button" id="delete_btn" value="삭제하기">
 	</c:if>
 </div>    
