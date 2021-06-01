@@ -5,6 +5,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,7 +14,6 @@ import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 @SuppressWarnings("resource")
 public class ApiSearchMovie {
@@ -24,16 +25,20 @@ public class ApiSearchMovie {
 	 * 
 	*/
 	
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         String clientId = "9a5xHErBtTfKYNwPF9s0"; //애플리케이션 클라이언트 아이디값"
         String clientSecret = "_w_IffuewE"; //애플리케이션 클라이언트 시크릿값"
 
         System.out.println("영화 제목을 입력하세요");
 		Scanner sc = new Scanner(System.in);
         String genre = sc.next();
+        
+        String apiURL = "";
+        FileOutputStream fos=null;
+        FileOutputStream fos2=null;
         try {
         	genre = URLEncoder.encode(genre, "UTF-8");
-        	String apiURL = "https://openapi.naver.com/v1/search/movie.json?query=" + genre; // json 결과
+        	apiURL = "https://openapi.naver.com/v1/search/movie.json?query=" + genre; // json 결과
             //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
         	
         	Map<String, String> requestHeaders = new HashMap<>();
@@ -44,35 +49,39 @@ public class ApiSearchMovie {
             JSONParser parser = new JSONParser();
         	JSONObject obj = (JSONObject)parser.parse(responseBody);
         	JSONArray items = (JSONArray)obj.get("items");
+        	String resultTxt = "";
         	for(int i=0; i<items.size(); i++) {
         		JSONObject results = (JSONObject)items.get(i);
         		String title = (String)results.get("title");
-        		
-	        	StringBuffer sb = new StringBuffer();
-	        	sb.append(title);
-	        	System.out.println(sb.toString());
+	        	
+	        	
+	        	resultTxt += title.replaceAll("<b>","").replaceAll("</b>", "") + "\n";
         	}
 
-        	FileOutputStream fos=null;
-    		try {
-    			fos=new FileOutputStream("search_result.txt");
-    			String str1 = responseBody;
-    			fos.write(str1.getBytes());
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		} finally {
-    			try {
-    				if(fos!=null) fos.close();
-    			} catch (Exception e) {
-    				e.printStackTrace();
-    			}
-    		}
+			fos = new FileOutputStream("search_result.txt");
+			String str1 = resultTxt;
+			fos.write(str1.getBytes());
+    	
             System.out.println(fos + " 파일이 생성되었습니다.");
         	
         	// System.out.println(responseBody);
         	
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("검색어 인코딩 실패",e);
+        } catch (Exception e) {
+            try {
+            	
+	            fos2 = new FileOutputStream("search_error.txt");
+				Date nowDate = new Date();
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd a h:mm:ss");
+		
+				String str1 = apiURL + simpleDateFormat.format(nowDate);
+				
+				fos2.write(str1.getBytes());
+				
+	            System.out.println(fos2 + "에러 파일이 생성되었습니다.");
+	            
+            } catch(Exception e2) {
+            	
+            }
         }
     }
 
