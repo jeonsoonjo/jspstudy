@@ -6,7 +6,7 @@ drop table member;
 -- 회원 테이블
 create table member
 (
-	no number, -- 회원 번호
+	no number, -- 회원 번호 pk
 	id varchar(32) not null unique, -- 아이디
 	pw varchar2(32) not null, -- 비번
 	name varchar2(50), -- 이름
@@ -17,7 +17,7 @@ create table member
 -- 회원 접속 기록(로그인, 로그아웃 시간 기록) 테이블
 create table member_log
 (
-	no number, -- 회원 번호
+	no number, -- 회원 번호 pk
 	id varchar(32), -- 아이디
 	login date,
 	logout date
