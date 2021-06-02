@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- SQL 작성하는 곳 -->
+<!-- mapper의 풀 패키지 경로를 작성한다  -->
+<mapper namespace="mybatis.mapper.board">
+	
+	<insert id="insertBoard" parameterType="dto.BoardDTO">
+		INSERT INTO
+		 BOARD
+		VALUES (BOARD_SEQ.NEXTVAL,
+				#{author}, <!-- 작성자 --><!-- dto.BoardDTO에서 getAuthor()를 실행한다 -->
+				#{title}, <!-- 제목 -->
+				#{content}, <!-- 내용 -->
+				#{ip}, <!-- 작성자 ip -->
+				0, <!-- 조회수 --><!-- 조회수는 getter로 뺄 필요가 없다 -->
+				SYSDATE, <!-- 작성일 -->
+				SYSDATE, <!-- 최종수정일 -->
+				0, <!-- 상태(정상: 0, 삭제: -1) -->
+				BOARD_SEQ.CURRVAL, <!-- 그룹번호 = 게시글번호 -->
+				0, <!-- group order --><!-- 같은 그룹 내 순서를 정하는 순번 -->
+				0 <!-- depth --><!-- 게시글(0)/댓글(1 이상) 구분 -->
+		)
+	</insert>
+	
+</mapper>
+<!-- 
+	namespace + id = DAO에 전달 -> mybatis.mapper.board.insertBoard
+	DAO에서 int result = ss.insert("mybatis.mapper.board.insertBoard", dto); 호출
+	인수는 mapper에 parameterType과 맞춰야 한다
+	
+	값을 가져올 때는 #{} : getter, setter가 자동으로 호출된다(dto. 안해도 됨)
+	group 번호를 매길때는 첫 번째 글이 가지는 번호와 같다(sequence를 생성했을 때는 currval를 사용해서 group의 번호를 알 수 있다)
+ -->
