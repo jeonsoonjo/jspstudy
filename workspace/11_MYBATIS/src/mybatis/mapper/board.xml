@@ -6,7 +6,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- SQL 작성하는 곳 -->
 <!-- mapper의 풀 패키지 경로를 작성한다  -->
 <mapper namespace="mybatis.mapper.board">
-	
+
+	<!-- 
+		namespace + id = DAO에 전달 -> 즉, mybatis.mapper.board.insertBoard
+		DAO에서 int result = ss.insert("mybatis.mapper.board.insertBoard", dto); 호출
+		인수는 mapper에 parameterType과 맞춰야 한다
+		
+		값을 가져올 때는 #{} : getter, setter가 자동으로 호출된다(dto. 안해도 됨)
+		group 번호를 매길때는 첫 번째 글이 가지는 번호와 같다(sequence를 생성했을 때는 currval를 사용해서 group의 번호를 알 수 있다)
+	-->
 	<insert id="insertBoard" parameterType="dto.BoardDTO">
 		INSERT INTO
 		 BOARD
@@ -25,12 +33,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
-</mapper>
-<!-- 
-	namespace + id = DAO에 전달 -> mybatis.mapper.board.insertBoard
-	DAO에서 int result = ss.insert("mybatis.mapper.board.insertBoard", dto); 호출
-	인수는 mapper에 parameterType과 맞춰야 한다
+	<select id="getTotalRecord" resultType="int">
+		SELECT COUNT(NO)
+		  FROM BOARD
+	</select>
 	
-	값을 가져올 때는 #{} : getter, setter가 자동으로 호출된다(dto. 안해도 됨)
-	group 번호를 매길때는 첫 번째 글이 가지는 번호와 같다(sequence를 생성했을 때는 currval를 사용해서 group의 번호를 알 수 있다)
- -->
+	<select id="selectList" parameterType="Map" resultType="dto.BoardDTO">
+		SELECT B.*
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT *
+		  		  		  FROM BOARD
+		  		  		 ORDER BY POSTDATE DESC) A) B
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+</mapper>
+
+
+

@@ -28,6 +28,7 @@ public class SelectListBoardCommand implements BoardCommand {
 		// 2) 한 페이지에 표시할 게시글의 개수 : recordPerPage
 		int recordPerPage = 5;
 		
+		// 3) 시작페이지, 종료페이지 구하기
 		// totalRecord, page, recordPerPage를 통해서
 		// beginRecord, endRecord를 계산
 		int beginRecord = (page - 1) * recordPerPage + 1;
@@ -51,7 +52,7 @@ public class SelectListBoardCommand implements BoardCommand {
 		request.setAttribute("paging", paging);
 		request.setAttribute("seq", totalRecord - (page - 1) * recordPerPage);
 		
-		ModelAndView mav = new ModelAndView("/board/listBoard.jsp", false);  // 포워드 이동
+		ModelAndView mav = new ModelAndView("/board/listBoard.jsp", false);  // forward 이동
 		return mav;
 		
 	}
