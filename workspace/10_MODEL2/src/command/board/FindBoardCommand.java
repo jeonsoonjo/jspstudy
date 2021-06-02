@@ -8,8 +8,6 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections4.map.HashedMap;
-
 import common.ModelAndView;
 import common.Paging;
 import dao.BoardDAO;

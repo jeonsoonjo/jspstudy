@@ -69,7 +69,8 @@ public class UpdateBoardCommand implements BoardCommand {
 				out.println("history.back()");
 				out.println("</script>");
 			} else {
-				mav = new ModelAndView("/10_MODEL2/selectOndBoard.b?idx=" + multipartRequest.getParameter("idx"), true); // redirect
+				// mav = new ModelAndView("/10_MODEL2/selectOndBoard.b?idx=" + multipartRequest.getParameter("idx"), true); // redirect
+				mav = new ModelAndView("/10_MODEL2/selectListBoardPage.b", true); // redirect
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,7 +9,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.MemberDTO;
-import oracle.jdbc.driver.DBConversion;
 
 public class MemberDAO {
 
