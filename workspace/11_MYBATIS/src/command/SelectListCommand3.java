@@ -13,7 +13,7 @@ import common.Paging;
 import dao.BoardDAO;
 import dto.BoardDTO;
 
-public class SelectListCommand implements BoardCommand {
+public class SelectListCommand3 implements BoardCommand {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -26,7 +26,7 @@ public class SelectListCommand implements BoardCommand {
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		// 2) 한 페이지에 표시할 게시글의 개수 : recordPerPage
-		int recordPerPage = 5;
+		int recordPerPage = 20;
 		// 3) 시작페이지, 종료페이지 구하기 
 		// totalRecord, page, recordPerPage를 통해서
 		// beginRecord, endRecord를 계산
@@ -41,11 +41,11 @@ public class SelectListCommand implements BoardCommand {
 		map.put("beginRecord", beginRecord);
 		map.put("endRecord", endRecord);
 		
-		// 3. DAO의 selectList() 메소드 호출
-		List<BoardDTO> list = BoardDAO.getInstance().selectList(map);
+		// 3. DAO의 selectList3() 메소드 호출
+		List<BoardDTO> list = BoardDAO.getInstance().selectList3(map);
 		
 		// 4. 페이징 처리(Paging 클래스)
-		String paging = Paging.getPaging("/11_MYBATIS/selectList.do", totalRecord, recordPerPage, page);
+		String paging = Paging.getPaging("/11_MYBATIS/selectList3.do", totalRecord, recordPerPage, page);
 		
 		// 5. 응답 View로 전달할 데이터
 		request.setAttribute("list", list);
@@ -53,7 +53,7 @@ public class SelectListCommand implements BoardCommand {
 		request.setAttribute("paging", paging);
 		request.setAttribute("seq", totalRecord - (page - 1) * recordPerPage); // sequence 순번 구하는 식
 		
-		return new ModelAndView("/board/selectList.jsp", false); // forward로 이동(forward는 내부 이동이기에 contextPath는 안 적어도 됨)
+		return new ModelAndView("/board/selectList3.jsp", false); // forward로 이동(forward는 내부 이동이기에 contextPath는 안 적어도 됨)
 	
 	}
 

@@ -6,6 +6,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<style>
+		.link{
+			color: blue;
+			font-size: 10px;
+			text-decoration: none;
+		}
+		.link:hover{
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
 	
@@ -49,7 +59,7 @@
 							</c:if>
 							${dto.title}
 							<c:if test="${dto.depth == 0}">
-								<font size="1"><a href="/11_MYBATIS/insertReplyPage.do?groupno=${dto.groupno}">답글</a></font>
+								<font size="1"><a class="link" href="/11_MYBATIS/insertReplyPage.do?groupno=${dto.groupno}">답글</a></font>
 							</c:if>
 						</td>
 						<td>${dto.author}</td>
@@ -65,6 +75,8 @@
 			</tr>
 		</tfoot>
 	</table>
+	<br><br>
+	<a href="/11_MYBATIS/index.jsp">첫 화면으로</a>
 	
 </body>
 </html>

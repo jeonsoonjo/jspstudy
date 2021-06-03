@@ -102,9 +102,24 @@ public class BoardDAO {
 		return list;
 	}
 	
+	// 8. 게시글 삭제
+	public int delete(long no) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("mybatis.mapper.board.delete", no);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
-	
-	
+	// 9. 대댓글 목록 반환
+	public List<BoardDTO> selectList3(Map<String, Integer> map){
+		SqlSession ss = factory.openSession();
+		List<BoardDTO> list = ss.selectList("mybatis.mapper.board.selectList3", map);
+		ss.close();
+		return list;
+	}
 	
 	
 	

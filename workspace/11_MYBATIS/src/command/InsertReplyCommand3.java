@@ -7,7 +7,7 @@ import common.ModelAndView;
 import dao.BoardDAO;
 import dto.BoardDTO;
 
-public class InsertReplyCommand implements BoardCommand {
+public class InsertReplyCommand3 implements BoardCommand {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -19,7 +19,7 @@ public class InsertReplyCommand implements BoardCommand {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String ip = request.getRemoteAddr();
-		long groupno = Long.parseLong(request.getParameter("groupno"));
+		long no = Long.parseLong(request.getParameter("no"));
 		
 		// 2. DB로 보낼 DTO
 		BoardDTO replyDTO = new BoardDTO();
@@ -27,17 +27,23 @@ public class InsertReplyCommand implements BoardCommand {
 		replyDTO.setTitle(title);
 		replyDTO.setContent(content);
 		replyDTO.setIp(ip);
-		replyDTO.setGroupno(groupno); // 댓글은 원글과 같은 그룹이 된다
-		replyDTO.setDepth(1); // 댓글의 depth는 1이다
-		replyDTO.setGroupord(1); // 그룹 내부 순서는 1을 가진다
-		// 기존 댓글들의 groupord를 1씩 증가시킨다(DAO의 increseGroupordPreviousReply() 메소드 호출)
-		BoardDAO.getInstance().increseGroupordPreviousReply(groupno); // groupno 전달
+		
+		// 1) 원글 정보 가져오기(DAO의 메소드 호출)
+		
+		// 2) 가져온 원글(부모) 정보를 이용해서 replyDTO 생성
+		
+		// 3) 같은 그룹의 기존 댓글들 중에, 가져온 원글(부모)의 groupord보다 큰 댓글들을 1씩 증가시킨다
+		
+		
+		
+		
+		
 		
 		// 3. 댓글 삽입하기(DAO의 insertReply() 메소드 호출)
 		int result = BoardDAO.getInstance().insertReply(replyDTO);
 		
 		// 4. 응답View로 전달할 데이터
-		return new ModelAndView("/11_MYBATIS/board/insertReplyResult.jsp?result=" + result, true); // redirect
+		return new ModelAndView("/11_MYBATIS/board/insertReplyResult3.jsp?result=" + result, true); // redirect
 		// 삽입 후에는 반드시 redirect한다
 		
 	}

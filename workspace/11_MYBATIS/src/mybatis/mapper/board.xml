@@ -99,11 +99,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
+	<update id="delete" parameterType="long">
+		UPDATE BOARD
+		   SET STATE = -1
+		 WHERE NO = ${no}
+	</update>
+	
+	<select id="selectList3" parameterType="Map" resultType="dto.BoardDTO">
+		SELECT B.*
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT *
+		  		  		  FROM BOARD
+		  		  		 ORDER BY GROUPNO DESC, GROUPORD ASC) A) B <!-- 댓글달기(대댓글).xml 파일 참고 -->
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
 	
 	
 	
-	
-
 </mapper>
 
 

@@ -10,7 +10,7 @@
 	
 		if('${param.result}' > 0){
 			alert('댓글이 등록되었습니다');
-			location.href = '/11_MYBATIS/selectList.do';
+			location.href = '/11_MYBATIS/selectList1.do';
 		} else{
 			alert('댓글의 등록이 실패했습니다');
 			history.back();

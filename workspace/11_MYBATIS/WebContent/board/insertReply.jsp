@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<form action="/11_MYBATIS/insertReply.do" method="post">
+	<form action="/11_MYBATIS/insertReply1.do" method="post">
 		<!-- 원글의 그룹번호(InsertReplyComamnd의 no를 파라미터 처리 해주기 위해 전달해야 한다 -->
 		<input type="hidden" name="groupno" value="${param.groupno}">
 		
@@ -25,6 +25,7 @@
 		
 		<button>저장하기</button>
 		<input type="reset" value="작성초기화">
+		<input type="button" value="작성취소" onclick="history.back()">
 	</form>
 
 </body>

@@ -22,6 +22,7 @@
 		
 		<button>저장하기</button>
 		<input type="reset" value="작성초기화">
+		<input type="button" value="작성취소" onclick="history.back()">
 	</form>
 
 </body>
