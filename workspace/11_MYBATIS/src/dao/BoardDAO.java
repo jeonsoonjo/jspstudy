@@ -56,7 +56,7 @@ public class BoardDAO {
 		return count;
 	}
 	
-	// 3. 목록
+	// 3. 게시글 목록 반환
 	public List<BoardDTO> selectList(Map<String, Integer> map){
 		SqlSession ss = factory.openSession();
 		List<BoardDTO> list = ss.selectList("mybatis.mapper.board.selectList", map);
@@ -86,10 +86,21 @@ public class BoardDAO {
 		return result;
 	}
 	
+	// 6. 검색 결과 개수 반환
+	public int getFindRecordCount(Map<String, Object> map) {
+		SqlSession ss = factory.openSession();
+		int count = ss.selectOne("mybatis.mapper.board.getFindRecordCount", map);
+		ss.close();
+		return count;
+	}
 	
-	
-	
-	
+	// 7. 검색 결과 목록 반환
+	public List<BoardDTO> findList(Map<String, Object> map){
+		SqlSession ss = factory.openSession();
+		List<BoardDTO> list = ss.selectList("mybatis.mapper.board.findList", map);
+		ss.close();
+		return list;
+	}
 	
 	
 	

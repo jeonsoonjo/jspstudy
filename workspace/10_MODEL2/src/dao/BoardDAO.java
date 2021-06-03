@@ -51,7 +51,7 @@ public class BoardDAO {
 		}
 	}
 	
-	// 2. 게시글 삽입 
+	// 2. 게시글 작성
 	public int insertBoard(BoardDTO dto) {
 		int result = 0;
 		try {
@@ -360,22 +360,6 @@ public class BoardDAO {
 		 }
 		 return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
 

@@ -13,14 +13,22 @@ import common.Paging;
 import dao.BoardDAO;
 import dto.BoardDTO;
 
-public class SelectListCommand implements BoardCommand {
+public class FindListCommand implements BoardCommand {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		// 1. DAO의 getTotalRecord() 메소드 호출
-		// 전체 게시글 개수 구하기
-		int totalRecord = BoardDAO.getInstance().getTotalRecord();
+		// 1. 파라미터 처리
+		String column = request.getParameter("column");
+		String query = request.getParameter("query");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("column", column);
+		map.put("query", "%" + query + "%");
+		
+		// 2. DAO의 getFindRecordCount() 메소드 호출
+		// 검색된 게시글의 개수
+		int totalRecord = BoardDAO.getInstance().getFindRecordCount(map);
 		
 		// 1) 페이지 수 처리하기(파라미터로 전달)
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
@@ -36,18 +44,17 @@ public class SelectListCommand implements BoardCommand {
 			endRecord = totalRecord;
 		}
 		
-		// 2. DB로 보낼 Map 생성
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		// 3. DB로 보낼 Map
 		map.put("beginRecord", beginRecord);
 		map.put("endRecord", endRecord);
 		
-		// 3. DAO의 selectList() 메소드 호출
-		List<BoardDTO> list = BoardDAO.getInstance().selectList(map);
+		// 4. DAO의 findList() 메소드 호출
+		List<BoardDTO> list = BoardDAO.getInstance().findList(map);
 		
-		// 4. 페이징 처리(Paging 클래스)
-		String paging = Paging.getPaging("/11_MYBATIS/selectList.do", totalRecord, recordPerPage, page);
+		// 5. 페이징 처리(Paging 클래스)
+		String paging = Paging.getPaging("/11_MYBATIS/findList.do?column=" + column + "&query=" + query, totalRecord, recordPerPage, page);
 		
-		// 5. 응답 View로 전달할 데이터
+		// 6. 응답 View로 전달할 데이터
 		request.setAttribute("list", list);
 		request.setAttribute("totalRecord", totalRecord);
 		request.setAttribute("paging", paging);
@@ -58,4 +65,5 @@ public class SelectListCommand implements BoardCommand {
 	}
 
 }
+
 

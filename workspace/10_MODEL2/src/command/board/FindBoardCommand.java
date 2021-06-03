@@ -62,9 +62,9 @@ public class FindBoardCommand implements BoardCommand {
 		request.setAttribute("totalRecord", totalRecord);
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);
-		request.setAttribute("seq", totalRecord - (page - 1) * recordPerPage);
+		request.setAttribute("seq", totalRecord - (page - 1) * recordPerPage); // sequence 순번 구하는 식
 		
-		ModelAndView mav = new ModelAndView("/board/listBoard.jsp", false);
+		ModelAndView mav = new ModelAndView("/board/listBoard.jsp", false); // forward로 이동(forward는 내부 이동이기에 contextPath는 안 적어도 됨)
 		return mav;
 		
 	}

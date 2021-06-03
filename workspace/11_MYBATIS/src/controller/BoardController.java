@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.BoardCommand;
+import command.FindListCommand;
 import command.InsertCommand;
 import command.InsertPageCommand;
 import command.InsertReplyCommand;
@@ -54,6 +55,9 @@ public class BoardController extends HttpServlet {
 			break;
 		case "insertReply.do" :
 			command = new InsertReplyCommand();
+			break;
+		case "findList.do" :
+			command = new FindListCommand();
 			break;
 			
 			

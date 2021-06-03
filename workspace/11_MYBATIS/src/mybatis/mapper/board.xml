@@ -71,7 +71,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				${groupord}, 
 				${depth} 
 		)
+		<!-- #{}는 문자열(따옴표 있음), ${}숫자 처리(따옴표 없음) -->
 	</insert>
+
+	<select id="getFindRecordCount" parameterType="Map" resultType="int">
+		SELECT COUNT(NO)
+		  FROM BOARD
+		 WHERE STATE = 0
+		   AND <if test="column != 'BOTH'">${column} LIKE #{query}</if>
+		   	   <if test="column == 'BOTH'">TITLE LIKE #{query} OR AUTHOR LIKE #{query}</if>
+		   <!-- 
+		   		#{column} : 'TITLE', 'AUTHOR', 'BOTH'
+		   		${column} : TITLE, AUTHOR, BOTH
+		   		#{query}  : '%검색어%'
+		   -->
+	</select>
+
+	<select id="findList" parameterType="Map" resultType="dto.BoardDTO">
+		SELECT B.*
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT *
+		  		  		  FROM BOARD
+		  		  		 WHERE STATE = 0
+		  		  		   AND <if test="column != 'BOTH'">${column} LIKE #{query}</if>
+		  		  		   	   <if test="column == 'BOTH'">TITLE LIKE #{query} OR AUTHOR LIKE #{query}</if>
+		  		  		 ORDER BY GROUPNO DESC, DEPTH ASC, GROUPORD DESC) A) B
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	
+	
+	
+	
+
 </mapper>
 
 
