@@ -9,8 +9,8 @@
 <body>
 
 	<form action="/11_MYBATIS/insertReply.do" method="post">
-		<!-- 원글의 번호(InsertReplyComamnd의 no를 파라미터 처리 해주기 위해 전달해야 한다 -->
-		<input type="text" name="no" value="${param.no}">
+		<!-- 원글의 그룹번호(InsertReplyComamnd의 no를 파라미터 처리 해주기 위해 전달해야 한다 -->
+		<input type="hidden" name="groupno" value="${param.groupno}">
 		
 		<h3>댓글 작성하기</h3>
 		

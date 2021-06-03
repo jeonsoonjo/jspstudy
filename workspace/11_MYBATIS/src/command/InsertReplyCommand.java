@@ -12,29 +12,36 @@ public class InsertReplyCommand implements BoardCommand {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		// 1단 댓글 달기
+		
 		// 1. 파라미터 처리
 		String author = request.getParameter("author");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String ip = request.getRemoteAddr();
-		long no = Long.parseLong(request.getParameter("no"));
+		long groupno = Long.parseLong(request.getParameter("groupno"));
 		
 		// 2. DB로 보낼 DTO
-		BoardDTO dto = new BoardDTO();
-		dto.setAuthor(author);
-		dto.setTitle(title);
-		dto.setContent(content);
-		dto.setIp(ip);
-		dto.setNo(no);
+		BoardDTO replyDTO = new BoardDTO();
+		replyDTO.setAuthor(author);
+		replyDTO.setTitle(title);
+		replyDTO.setContent(content);
+		replyDTO.setIp(ip);
+		replyDTO.setGroupno(groupno); // 댓글은 원글과 같은 그룹이 된다
+		replyDTO.setDepth(1); // 댓글의 depth는 1이다
+		replyDTO.setGroupord(1); // 그룹 내부 순서는 1을 가진다
+		// 기존 댓글들의 groupord를 1씩 증가시킨다(DAO의 increseGroupordPreviousReply() 메소드 호출)
+		BoardDAO.getInstance().increseGroupordPreviousReply(groupno); // groupno 전달
 		
-		// 3. DAO의 insert() 메소드 호출
-		int result = BoardDAO.getInstance().insert(dto);
+		// 3. 댓글 삽입하기(DAO의 insertReply() 메소드 호출)
+		int result = BoardDAO.getInstance().insertReply(replyDTO);
 		
-		// 4. 결과를 처리할 insertResult.jsp를 생성(script 처리 하면 됨)하고 이동
-		return new ModelAndView("/11_MYBATIS/board/insertResult.jsp?result=" + result, true); // redirect
-		// 반드시 redirect로 이동(수정 후에 값을 전달하기에 수정 전 값까지 전달할 필요가 없다. ?result= 파라미터로 그 값을 전달)
+		// 4. 응답View로 전달할 데이터
+		return new ModelAndView("/11_MYBATIS/board/insertReplyResult.jsp?result=" + result, true); // redirect
+		// 삽입 후에는 반드시 redirect한다
 		
 	}
 
 }
+
 

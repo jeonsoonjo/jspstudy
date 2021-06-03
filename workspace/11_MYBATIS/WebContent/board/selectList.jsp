@@ -34,7 +34,15 @@
 				<c:forEach var="dto" items="${list}" varStatus="k">
 					<tr>
 						<td>${seq - k.index}</td>
-						<td>${dto.title}<font size="1"><a href="/11_MYBATIS/insertReplyPage.do?=${dto.no}">답글</a></font></td>
+						<td>
+							<c:if test="${dto.depth == 1}">
+								&nbsp;&nbsp;&nbsp;[re]
+							</c:if>
+							${dto.title}
+							<c:if test="${dto.depth == 0}">
+								<font size="1"><a href="/11_MYBATIS/insertReplyPage.do?groupno=${dto.groupno}">답글</a></font>
+							</c:if>
+						</td>
 						<td>${dto.author}</td>
 						<td>${dto.lastmodified}</td>
 						<td>${dto.hit}</td>

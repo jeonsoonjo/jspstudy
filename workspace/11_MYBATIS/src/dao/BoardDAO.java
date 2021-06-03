@@ -30,7 +30,7 @@ public class BoardDAO {
 	// 1. 게시글 작성
 	// SqlSession interface(ibatis)
 	// openSession() : 타입이 비었을 때는 select만 가능(commit이 아니기 때문에)
-	// openSession(boolean) : 타입이 있을 때는 insert, update, delete 가능(commit을 하기 때문에)
+	// openSession(boolean) : 타입이 있을 때는 insert, update, delete 가능(직접 commit을 하기 때문에)
 	public int insert(BoardDTO dto) {
 		SqlSession ss = factory.openSession(false); // insert 후 수동 커밋하겠다는 의미
 		int result = ss.insert("mybatis.mapper.board.insertBoard", dto); // ss.insert("SQL의 id", "인수"), sql문은 board.xml에서 작성
@@ -64,9 +64,27 @@ public class BoardDAO {
 		return list;
 	}
 	
-
+	// 4. 같은 그룹 기존 댓글들의 groupord 1씩 증가하기
+	public int increseGroupordPreviousReply(long groupno) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update("mybatis.mapper.board.increseGroupordPreviousReply", groupno);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
-	
+	// 5. 댓글 삽입하기
+	public int insertReply(BoardDTO replyDTO) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.insert("mybatis.mapper.board.insertReply", replyDTO);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	
