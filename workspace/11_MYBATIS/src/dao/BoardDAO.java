@@ -51,7 +51,7 @@ public class BoardDAO {
 	// selectOne() : 하나만 조회
 	public int getTotalRecord() {
 		SqlSession ss = factory.openSession(); // commit이 필요 없는 select문
-		int count = ss.selectOne("mybatis.mapper.board.getTotalRecord");
+		int count = ss.selectOne("mybatis.mapper.board.getTotalRecord"); // parameterType이 없기 때문에 반환 타입을 적지 않는다
 		ss.close();
 		return count;
 	}
@@ -64,8 +64,7 @@ public class BoardDAO {
 		return list;
 	}
 	
-	
-	
+
 	
 	
 	

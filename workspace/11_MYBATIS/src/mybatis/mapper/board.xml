@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		값을 가져올 때는 #{} : getter, setter가 자동으로 호출된다(dto. 안해도 됨)
 		group 번호를 매길때는 첫 번째 글이 가지는 번호와 같다(sequence를 생성했을 때는 currval를 사용해서 group의 번호를 알 수 있다)
 	-->
+	<!-- insert, update, delete문에는 resultType을 작성하지 않는다(스스로 int를 반환하도록 되어 있기 때문) -->
 	<insert id="insertBoard" parameterType="dto.BoardDTO">
 		INSERT INTO
 		 BOARD

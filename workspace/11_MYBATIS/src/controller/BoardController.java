@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import command.BoardCommand;
 import command.InsertCommand;
 import command.InsertPageCommand;
+import command.InsertReplyCommand;
+import command.InsertReplyPageCommand;
 import command.SelectListCommand;
 import common.ModelAndView;
 
@@ -47,8 +49,12 @@ public class BoardController extends HttpServlet {
 		case "insert.do" :
 			command = new InsertCommand();
 			break;
-			
-			
+		case "insertReplyPage.do" :
+			command = new InsertReplyPageCommand();
+			break;
+		case "insertReply.do" :
+			command = new InsertReplyCommand();
+			break;
 			
 			
 			
