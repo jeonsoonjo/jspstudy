@@ -12,26 +12,32 @@ import common.ModelAndView;
 import dao.MemberDAO;
 import dto.Member;
 
-public class UpdatePwCommand implements MemberCommand {
+public class UpdateInfoCommand implements MemberCommand {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		// 1. 파라미터 처리
 		long no = Long.parseLong(request.getParameter("no"));
-		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
 		
 		// 2. DB로 보낼 DTO
 		Member member = new Member();
 		member.setNo(no);
-		member.setPw(pw);
+		member.setName(name);
+		member.setEmail(email);
+		member.setPhone(phone);
 		
-		// 3. DAO의 updatePw() 메소드 호출
-		int result = MemberDAO.getInstance().updatePw(member);
+		// 3. DAO의 updateInfo() 메소드 호출
+		int result = MemberDAO.getInstance().updateInfo(member);
 		if(result > 0) {
-			HttpSession session = request.getSession(); // session 기존 비번 꺼내기
+			HttpSession session = request.getSession();
 			Member loginUser = (Member)session.getAttribute("loginUser");
-			loginUser.setPw(pw); // 변경된 비번이 있다면 session에 update하기
+			loginUser.setName(name);
+			loginUser.setEmail(email);
+			loginUser.setPhone(phone);
 		}
 		
 		// 4. JSON 타입으로 응답처리
@@ -44,6 +50,7 @@ public class UpdatePwCommand implements MemberCommand {
 		out.close();
 		
 		return null;
+		
 	}
 
 }

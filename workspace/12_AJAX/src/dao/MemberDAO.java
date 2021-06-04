@@ -61,18 +61,27 @@ public class MemberDAO {
 		return result;
 	}
 	
+	// 5. 회원정보 변경
+	public int updateInfo(Member member) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update("dao.member.updateInfo", member);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 6. 회원 탈퇴
+	public int deleteInfo(long no) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("dao.member.deleteInfo", no);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 }
 

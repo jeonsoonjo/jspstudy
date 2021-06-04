@@ -32,13 +32,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE NO = ${no}
 	</update>
 	
+	<update id="updateInfo" parameterType="dto.Member">
+		UPDATE MEMBER
+		   SET NAME = #{name}, EMAIL = #{email}, PHONE = #{phone}
+		 WHERE NO = ${no}
+	</update>
 	
-	
-	
-	
-	
-	
-	
+	<delete id="deleteInfo" parameterType="long">
+		DELETE
+		  FROM MEMBER
+		 WHERE NO = ${no}
+	</delete>
 	
 </mapper>
 

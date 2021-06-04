@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import command.DeleteInfoCommand;
 import command.IdCheckCommand;
 import command.JoinCommand;
 import command.JoinPageCommand;
@@ -14,6 +15,7 @@ import command.LoginCommand;
 import command.LoginPageCommand;
 import command.LogoutCommand;
 import command.MemberCommand;
+import command.UpdateInfoCommand;
 import command.UpdatePwCommand;
 import common.ModelAndView;
 
@@ -58,12 +60,11 @@ public class MemberController extends HttpServlet {
 		case "updatePw.do" :
 			command = new UpdatePwCommand();
 			break;
-			
-			
-			
-			
-			
-			
+		case "updateInfo.do" :
+			command = new UpdateInfoCommand();
+			break;
+		case "deleteInfo.do" :
+			command = new DeleteInfoCommand();
 		}
 		
 		// mav에서 경로 가져오기
