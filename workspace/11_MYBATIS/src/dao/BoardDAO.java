@@ -11,10 +11,13 @@ import mybatis.config.DBService;
 
 public class BoardDAO {
 
-	private SqlSessionFactory factory;
-	
 	// singleton
+	
+	// field
+	private SqlSessionFactory factory;
 	private static BoardDAO instance = new BoardDAO();
+	
+	// constructor
 	private BoardDAO() {
 		factory = DBService.getInstance().getFactory();
 	}
@@ -121,9 +124,24 @@ public class BoardDAO {
 		return list;
 	}
 	
+	// 10. 원글 가져오기
+	public BoardDTO selectBoard(long no) {
+		SqlSession ss = factory.openSession();
+		BoardDTO boardDTO = ss.selectOne("mybatis.mapper.board.selectBoard", no);
+		ss.close();
+		return boardDTO;
+	}
 	
-	
-	
+	// 11. 원글의 groupord보다 큰 groupord를 가진 댓글의 groupord 증가
+	public int increseGroupordOtherReply(BoardDTO boardDTO) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update("mybatis.mapper.board.increseGroupordOtherReply", boardDTO);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	
