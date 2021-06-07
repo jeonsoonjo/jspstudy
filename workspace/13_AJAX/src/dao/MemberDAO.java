@@ -53,10 +53,27 @@ public class MemberDAO {
 		return result;
 	}
 	
+	// 4. 회원 등록하기
+	public int insertMember(Member member) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.insert("dao.member.insertMember", member);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
-	
-	
-	
+	// 5. 회원 삭제하기
+	public int deleteMember(long no) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("dao.member.deleteMember", no);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

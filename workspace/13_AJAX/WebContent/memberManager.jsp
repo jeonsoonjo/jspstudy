@@ -11,6 +11,9 @@
 			selectMemberList();
 			selectMemberByNo();
 			updateMember();
+			init();
+			insertMember();
+			deleteMember();
 		})
 		
 		// 함수
@@ -155,15 +158,72 @@
 			})
 		}
 		
+		// 4. 회원 정보 초기화
+		function init(){
+			$('#init_btn').click(function(){
+				$('#id').val(''); // id에 빈 문자열 넣기. 즉, 초기화
+				$('#name').val('');
+				$('input:radio[name="gender"]').prop('checked', false); // check되어 있는 것을 품
+				$('#address').val('');
+			})
+		}
 		
+		// 5. 회원 등록하기
+		function insertMember(){
+			$('#insert_btn').click(function(){
+				var obj = {
+						id : $('#id').val(),
+						name : $('#name').val(),
+						gender : $('input:radio[name="gender"]:checked').val(),
+						address : $('#address').val()
+				};
+				$.ajax({
+					url: '/13_AJAX/insertMember.do',
+					type: 'post',
+					data: 'member=' + JSON.stringify(obj),
+					dataType: 'json',
+					success: function(result){
+						if(result.isSuccess){
+							alert('신규 회원이 등록되었습니다.');
+							selectMemberList();
+						} else{
+							alert('신규 회원으로 등록되지 않았습니다.');
+						}
+					},
+					error: function(xhr, status, error){
+						console.log(status + " : " + error);
+						alert('회원 등록이 실패했습니다.');
+					}
+				})
+			})
+		}
 		
-		
-		
-		
-		
-		
-		
-		
+		// 6. 회원 삭제하기
+		function deleteMember(){
+			$('body').on('click', '#delete_btn', function(){
+				var no = $(this).parent().parent().find('input:hidden[name="no"]').val();
+				if(confirm(no + ' 번 회원을 삭제할까요?')){
+					$.ajax({
+						url: '/13_AJAX/deleteMember.do',
+						type: 'get',
+						data: 'no=' + no,
+						dataType: 'json',
+						success: function(result){
+							if(result.isSuccess){
+								alert('회원 정보가 삭제되었습니다.');
+								selectMemberList();
+							} else{
+								alert('삭제된 회원이 없습니다.');
+							}
+						},
+						error: function(xhr, status, error){
+							console.log(status + " : " + error);
+							alert('회원 삭제가 실패했습니다.');
+						}
+					})
+				}
+			})
+		}
 		
 	</script>
 	<style>
