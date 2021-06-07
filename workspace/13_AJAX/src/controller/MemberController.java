@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.MemberCommand;
+import command.SelectMemberByNoCommand;
 import command.SelectMemberListCommand;
 
 
@@ -34,7 +35,9 @@ public class MemberController extends HttpServlet {
 		case "selectMemberList.do" :
 			command = new SelectMemberListCommand();
 			break;
-		
+		case "selectMemberByNo.do" :
+			command = new SelectMemberByNoCommand();
+			break;
 		
 		
 		

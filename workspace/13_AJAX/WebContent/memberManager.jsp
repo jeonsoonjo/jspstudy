@@ -9,11 +9,14 @@
 	<script>
 		$(document).ready(function(){
 			selectMemberList();
+			selectMemberByNo();
 		})
 		
+		// 함수
+		// 1. 회원 목록 가져오기
 		function selectMemberList(){
 			$.ajax({
-				url: 'selectMemberList.do',
+				url: '/13_AJAX/selectMemberList.do',
 				type: 'get',
 				dataType: 'json',
 				success: function(result){
@@ -54,7 +57,8 @@
 				}
 			})
 		}
-		// 회원 목록을 받아서 테이블을 생성하는 함수
+		
+		// 1-1. 회원 목록을 받아서 테이블을 생성하는 함수
 		function generateMemberList(list){
 			$.each(list, function(i, member){
 				$('<tr>')
@@ -63,11 +67,60 @@
 				.append($('<td>').text(member.name))
 				.append($('<td>').text(member.gender))
 				.append($('<td>').text(member.address))
+				.append($('<input type="hidden" name="no">').val(member.no))
 				.append($('<td>').html('<input type="button" value="조회" id="view_btn"><input type="button" value="삭제" id="delete_btn">'))
 				.appendTo('#memberList');
 				
 			})
 		}
+		
+		// 2. 회원 정보 가져오기
+		function selectMemberByNo(){
+			/* 
+				ajax로 만든 동적 객체$('#view_btn') 처리가 안 되기 때문에 정적 객체로 만들어서 사용해야 한다
+				$('#view_btn').on('click', function(){
+					alert('수정하시겠습니까?');
+				})
+			*/
+			$('body').on('click', '#view_btn', function(){
+				// 해당 회원번호 출력하기
+				// var no = $(this).parent().parent().find('input:hidden[name="no"]').val();
+				var no = $(this).parents('tr').find('input:hidden[name="no"]').val();
+				$.ajax({
+					url: '/13_AJAX/selectMemberByNo.do',
+					type: 'get',
+					data: 'no=' + no,
+					success: function(result){
+						if(result.isExist){
+							$('.left input:text[name="id"]').val(result.id);
+							// $('#id').val(result.id);
+							$('#name').val(result.name);
+							$('.left input:radio[name="gender"][value="' + result.gender + '"]').prop('checked', true);
+							$('#address').val(result.address);
+						} else{
+							alert('해당 회원 정보를 확인할 수 없습니다.');
+						}
+					},
+					error: function(xhr, status, error){
+						console.log(status + " : " + error);
+						alert('회원 정보 로드를 실패했습니다.');
+					}
+				})
+			})
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>
 	<style>
 		.container{

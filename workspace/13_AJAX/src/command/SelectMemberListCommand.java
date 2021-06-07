@@ -23,7 +23,7 @@ public class SelectMemberListCommand implements MemberCommand {
 		
 		// 2. JSON 타입으로 응답처리
 		JSONObject obj = new JSONObject();
-		if(list.size() > 0) {
+		if(list.size() > 0) { // 데이터가 있다는 얘기
 			JSONArray arr = new JSONArray();
 			for(Member member : list) {
 				JSONObject obj2 = new JSONObject();
@@ -49,3 +49,5 @@ public class SelectMemberListCommand implements MemberCommand {
 	}
 
 }
+
+

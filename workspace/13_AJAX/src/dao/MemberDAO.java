@@ -34,6 +34,16 @@ public class MemberDAO {
 		return list;
 	}
 	
+	// 2. 회원 정보 가져오기
+	public Member selectMemberByNo(long no) {
+		SqlSession ss = factory.openSession();
+		Member member = ss.selectOne("dao.member.selectMemberByNo", no);
+		ss.close();
+		return member;
+	}
+	
+	
+	
 	
 	
 	
