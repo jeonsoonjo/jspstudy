@@ -7,6 +7,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- mapper의 패키지 경로를 작성한다  -->
 <mapper namespace="dao.member">
 
+	<select id="selectMemberList" resultType="dto.Member">
+		SELECT NO, ID, NAME, GENDER, ADDRESS
+		  FROM MEMBER
+		 ORDER BY NO DESC
+	</select>
+
+
+
+
+
+
 
 	
 </mapper>

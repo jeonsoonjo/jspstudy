@@ -8,8 +8,66 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function(){
-			
+			selectMemberList();
 		})
+		
+		function selectMemberList(){
+			$.ajax({
+				url: 'selectMemberList.do',
+				type: 'get',
+				dataType: 'json',
+				success: function(result){
+					/*
+						result = {
+							"list" :
+								[
+									{
+										"no":5,
+										"address":"대구",
+										"gender":"여",
+										"name":"김아토",
+										"id":"user5"
+									},
+									{
+										"no":4,
+										"address":"울산",
+										"gender":"남",
+										"name":"윤건우",
+										"id":"user4"
+									}
+										
+								],
+							"isExist" : true
+						}
+					*/
+					if(result.isExist){ // 목록이 있다면
+						generateMemberList(result.list);
+					} else{ // html 태그를 만들어 appendTo로 해당 아이디 값을 넣는다
+						$('<tr>')
+						.append($('<td colspan="6">').text('회원 목록이 없습니다.'))
+						.appendTo('#memberList');
+					}
+				},
+				error: function(xhr, status, error){
+					console.log(status + " : " + error);
+					alert('회원 목록 로드를 실패했습니다.');
+				}
+			})
+		}
+		// 회원 목록을 받아서 테이블을 생성하는 함수
+		function generateMemberList(list){
+			$.each(list, function(i, member){
+				$('<tr>')
+				.append($('<td>').text(member.no))
+				.append($('<td>').text(member.id))
+				.append($('<td>').text(member.name))
+				.append($('<td>').text(member.gender))
+				.append($('<td>').text(member.address))
+				.append($('<td>').html('<input type="button" value="조회" id="view_btn"><input type="button" value="삭제" id="delete_btn">'))
+				.appendTo('#memberList');
+				
+			})
+		}
 	</script>
 	<style>
 		.container{

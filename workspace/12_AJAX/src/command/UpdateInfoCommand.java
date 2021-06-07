@@ -43,7 +43,6 @@ public class UpdateInfoCommand implements MemberCommand {
 		// 4. JSON 타입으로 응답처리
 		JSONObject obj = new JSONObject();
 		obj.put("result", result);
-		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println(obj);

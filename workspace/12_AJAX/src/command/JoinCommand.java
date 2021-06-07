@@ -23,13 +23,15 @@ public class JoinCommand implements MemberCommand {
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
 		
+		// 2. DB로 보낼 DTO
 		Member member = new Member(id, pw, name, email, phone);
 		
+		// 3. DAO의 join() 메소드 호출
 		int result = MemberDAO.getInstance().join(member);
 		
+		// 4. JSON 타입으로 응답처리
 		JSONObject obj = new JSONObject();
 		obj.put("result", result);
-		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println(obj);
