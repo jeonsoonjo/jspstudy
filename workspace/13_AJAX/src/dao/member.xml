@@ -35,10 +35,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM MEMBER
 		 WHERE NO = ${no}
 	</delete>
-
-
-
-
+	
+	<select id="getMemberCount" resultType="int">
+		SELECT COUNT(NO)
+		  FROM MEMBER
+	</select>
 	
 </mapper>
 

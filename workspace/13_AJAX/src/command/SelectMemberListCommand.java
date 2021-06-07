@@ -18,11 +18,21 @@ public class SelectMemberListCommand implements MemberCommand {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		// 1. DAO의 selectMemberList() 메소드 호출
-		List<Member> list = MemberDAO.getInstance().selectMemberList();
+		// 전체 회원 수 구하기
+		int totalRecord = MemberDAO.getInstance().getMemberCount();
 		
-		// 2. JSON 타입으로 응답처리
+		// beginRecord ~ endRecord 구하기
+		
+		// beginRecord ~ endRecord 페이지 목록 가져오기
+		List<Member> list = MemberDAO.getInstance().selectMemberList();
 		JSONObject obj = new JSONObject();
+	
+		// 페이지 관련 변수만 저장할 JSON
+		JSONObject paging = new JSONObject();
+		paging.put("totalRecord", totalRecord);
+		
+		obj.put("paging", paging);
+		
 		if(list.size() > 0) { // 데이터가 있다는 얘기
 			JSONArray arr = new JSONArray();
 			for(Member member : list) {

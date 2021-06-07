@@ -50,9 +50,6 @@ public class MemberController extends HttpServlet {
 		case "deleteMember.do" :
 			command = new DeleteMemberCommand();
 			break;
-		
-		
-		
 		}
 		
 		// mav에서 경로 가져오기

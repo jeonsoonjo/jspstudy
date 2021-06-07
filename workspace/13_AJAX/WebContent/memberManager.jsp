@@ -48,6 +48,9 @@
 						}
 					*/
 					
+					// 전체 회원 수
+					$('#totalRecord').text('전체 회원: ' + result.paging.totalRecord + '명');
+					
 					// 기존의 목록을 화면에서 제거
 					// 그렇지 않으면 다른 곳에서 호출했을 때(예: 회원 정보 수정 후 호출할 때)
 					// 목록이 또 생기게 된다
@@ -279,6 +282,7 @@
 		<%-- 오른쪽, 회원 목록/삭제 --%>
 		<div class="right">
 			<h3>회원 목록/삭제</h3>
+			<div id="totalRecord"></div>
 			<table>
 				<thead>
 					<tr>
