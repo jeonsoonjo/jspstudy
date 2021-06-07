@@ -42,6 +42,16 @@ public class MemberDAO {
 		return member;
 	}
 	
+	// 3. 회원 정보 수정하기
+	public int updateMember(Member member) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update("dao.member.updateMember", member);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

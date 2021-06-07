@@ -19,7 +19,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE NO = ${no}
 	</select>
 	
-
+	<update id="updateMember" parameterType="dto.Member">
+		UPDATE MEMBER
+		   SET NAME = #{name}, GENDER = #{gender}, ADDRESS = #{address}
+		 WHERE NO = ${no}
+	</update>
 
 
 

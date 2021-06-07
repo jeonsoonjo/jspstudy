@@ -10,6 +10,7 @@
 		$(document).ready(function(){
 			selectMemberList();
 			selectMemberByNo();
+			updateMember();
 		})
 		
 		// 함수
@@ -43,6 +44,12 @@
 							"isExist" : true
 						}
 					*/
+					
+					// 기존의 목록을 화면에서 제거
+					// 그렇지 않으면 다른 곳에서 호출했을 때(예: 회원 정보 수정 후 호출할 때)
+					// 목록이 또 생기게 된다
+					$('#memberList').empty();
+					
 					if(result.isExist){ // 목록이 있다면
 						generateMemberList(result.list);
 					} else{ // html 태그를 만들어 appendTo로 해당 아이디 값을 넣는다
@@ -97,6 +104,10 @@
 							$('#name').val(result.name);
 							$('.left input:radio[name="gender"][value="' + result.gender + '"]').prop('checked', true);
 							$('#address').val(result.address);
+							
+							// 회원 번호 생성
+							$('.left input:hidden[name="no"]').remove(); // 기존 hidden값 제거
+							$('.left').append($('<input type="hidden" name="no">').val(result.no));
 						} else{
 							alert('해당 회원 정보를 확인할 수 없습니다.');
 						}
@@ -109,7 +120,40 @@
 			})
 		}
 		
-		
+		// 3. 회원 정보 수정하기
+		function updateMember(){
+			$('#update_btn').click(function(){
+				// 서버로 JSON 데이터 보내기
+				var obj = {
+						"no" : $('input:hidden[name="no"]').val(),
+						"id" : $('#id').val(),
+						"name" : $('#name').val(),
+						"gender" : $('input:radio[name="gender"]:checked').val(),
+						"address" : $('#address').val()
+				};
+				// console.log(JSON.stringify(obj)); // JSON 문자열로 변환(javascript 내장객체)
+				$.ajax({
+					url: '/13_AJAX/updateMember.do',
+					type: 'post',
+					data: 'member=' + JSON.stringify(obj),
+					dataType: 'json',
+					success: function(result){
+						if(result.isSuccess){
+							alert('회원 정보가 수정되었습니다.');
+							// 수정이 되었으면 selectMemberList(회원 목록)에도 업데이트 해야 한다
+							// 호출하면 회원 목록을 다시 생성한다
+							selectMemberList();
+						} else{
+							alert('변경된 회원 정보가 없습니다.');
+						}
+					},
+					error: function(xhr, status, error){
+						console.log(status + " : " + error);
+						alert('회원 정보 수정이 실패했습니다.');
+					}	
+				})
+			})
+		}
 		
 		
 		
