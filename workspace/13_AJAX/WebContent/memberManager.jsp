@@ -17,11 +17,16 @@
 		})
 		
 		// 함수
+		
+		// 페이징 처리를 위한 현재 페이지
+		var page = 1;
+		
 		// 1. 회원 목록 가져오기
 		function selectMemberList(){
 			$.ajax({
 				url: '/13_AJAX/selectMemberList.do',
 				type: 'get',
+				data: 'page=' + page,
 				dataType: 'json',
 				success: function(result){
 					/*
@@ -56,12 +61,42 @@
 					// 목록이 또 생기게 된다
 					$('#memberList').empty();
 					
+					// 회원 목록 출력
 					if(result.isExist){ // 목록이 있다면
 						generateMemberList(result.list);
 					} else{ // html 태그를 만들어 appendTo로 해당 아이디 값을 넣는다
 						$('<tr>')
 						.append($('<td colspan="6">').text('회원 목록이 없습니다.'))
 						.appendTo('#memberList');
+					}
+					
+					// 페이징 출력
+					var paging = result.paging;
+					
+					// 페이징 영역 초기화
+					$('#paging').empty();
+					
+					// 이전
+					if(paging.beginPage <= paging.pagePerBlock){
+						$('<div>이전</div>').appendTo('#paging');
+					} else{
+						$('<div><a>이전</a></div>').appendTo('#paging')
+					}
+					
+					// 1 2 3 4 5 
+					for(let p = paging.beginPage; p<=paging.endPage; p++){
+						if(paging.page == p){
+							$('<div>' + p + '</div>').appendTo('#paging');
+						} else{
+							$('<div><a>' + p + '</a></div>').appendTo('#paging');
+						}
+					}
+					
+					// 다음
+					if(paging.endPage == paging.totalPage){
+						$('<div>다음</div>').appendTo('#paging');
+					} else{
+						$('<div><a>다음</a></div>').appendTo('#paging');
 					}
 				},
 				error: function(xhr, status, error){
@@ -294,9 +329,14 @@
 						<td>버튼</td>
 					</tr>
 				</thead>
-				<tbody id="memberList">
-					
-				</tbody>
+				<tbody id="memberList"></tbody>
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<div id="paging"></div>
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>
