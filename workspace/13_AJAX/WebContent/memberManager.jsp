@@ -14,6 +14,7 @@
 			init();
 			insertMember();
 			deleteMember();
+			fn_paging();
 		})
 		
 		// 함수
@@ -29,6 +30,10 @@
 				data: 'page=' + page,
 				dataType: 'json',
 				success: function(result){
+				// ajax로 작성하면 위 url 매핑값에 직접 접근하는 것이 아니라
+				// selectMemberList.do에 저장된 result(결과)값을 가져오는 것이기 때문에
+				// ajax에서는 href를 사용할 수 없다
+				// 즉, selectMemberList.do를 이벤트 호출로 링크(파라미터)를 가져와야 한다
 					/*
 						result = {
 							"list" :
@@ -78,9 +83,10 @@
 					
 					// 이전
 					if(paging.beginPage <= paging.pagePerBlock){
-						$('<div>이전</div>').appendTo('#paging');
+						// 이전이 없는 1블록(disable : 링크가 없다)
+						$('<div class="disable">이전</div>').appendTo('#paging');
 					} else{
-						$('<div><a>이전</a></div>').appendTo('#paging')
+						$('<div class="prev_block link" data-page="' + (paging.beginPage - 1) + '">이전</div>').appendTo('#paging')
 					}
 					
 					// 1 2 3 4 5 
@@ -121,6 +127,16 @@
 				
 			})
 		}
+		
+		// 1-2. 페이징의 링크를 처리하는 함수
+		// 이동할 페이지 번호를 계산하고 selectMemberList() 함수 호출하기
+		function fn_paging(){
+			$('body').on('click', '.prev_block', function(){
+				page = $(this).data('page');
+				selectMemberList();
+			})
+		}
+		
 		
 		// 2. 회원 정보 가져오기
 		function selectMemberByNo(){
@@ -275,6 +291,7 @@
 			width: 1000px;
 		}
 		table{
+			width: 100%;
 			border-collapse: collapse;
 		}
 		td{
@@ -282,6 +299,25 @@
 			text-align: center;
 			border-top: 1px solid gray;
 			border-bottom: 1px solid gray;
+		}
+		
+		/* 페이징 처리 */
+		#paging{
+			width: 40%;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+			text-align: center;
+		}
+		#paging div{
+			width: 40px;
+			height: 20px;
+		}
+		.disable{
+			color: lightgray;
+		}
+		.link{
+			cursor: pointer;
 		}
 	</style>
 </head>

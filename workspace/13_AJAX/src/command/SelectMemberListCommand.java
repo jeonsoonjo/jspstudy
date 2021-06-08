@@ -32,7 +32,7 @@ public class SelectMemberListCommand implements MemberCommand {
 		int recordPerPage = 5;
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;
-		endRecord = (endRecord > totalRecord) ? endRecord : totalRecord;
+		endRecord = (endRecord < totalRecord) ? endRecord : totalRecord;
 		
 		// beginRecord + endRecord : Map
 		Map<String, Integer> map = new HashMap<String, Integer>();
