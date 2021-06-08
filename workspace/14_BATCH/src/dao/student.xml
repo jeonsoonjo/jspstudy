@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- SQL 작성하는 곳 -->
+<!-- mapper의 패키지 경로를 작성한다  -->
+<mapper namespace="dao.student">
+	
+	<select id="selectStudentList" resultType="dto.StudentDTO">
+		SELECT SNO, NAME, KOR, ENG, MAT, AVE, GRADE
+		  FROM STUDENT
+		 ORDER BY SNO
+	</select>
+	<!-- 
+		<![CDATA[query]]>
+		query를 모두 문자열로 인식하라는 의미
+		전체 문장을 묶는 것도 가능하나
+		<if test=""> 같은 동적 쿼리는 인식하지 않는다
+		즉, 필요한 문장에만 하는 것을 추천!
+		예를 들어, >(크다)는 정상적으로 인식하지만, <(작다)는 연산자로 인식하지 못 함
+
+		<select id="selectStudentList" resultType="dto.StudentDTO">
+			SELECT SNO, NAME, KOR, ENG, MAT, AVE, GRADE
+			  FROM STUDENT
+			 WHERE <![CDATA[AVE < 60]]>
+			 ORDER BY SNO
+		</select>
+	-->
+
+	<insert id="insertStudent" parameterType="dto.StudentDTO">
+		INSERT INTO STUDENT
+		VALUES (#{sno}, #{name}, ${kor}, ${eng}, ${mat}, ${ave}, #{grade})
+	</insert>
+
+	<select id="top3StudentList" resultType="dto.StudentDTO">
+		SELECT ROWNUM, A.SNO, A.NAME, A.KOR, A.ENG, A.MAT, A.AVE, A.GRADE
+		  FROM (SELECT SNO, NAME, KOR, ENG, MAT, AVE, GRADE
+		  		  FROM STUDENT
+		  		 ORDER BY AVE DESC) A
+		 WHERE <![CDATA[ROWNUM <= 3]]>
+	</select>
+
+
+
+
+
+
+
+
+
+	
+</mapper>
+
+
+

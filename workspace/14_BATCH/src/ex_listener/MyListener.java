@@ -14,7 +14,7 @@ import org.quartz.SchedulerFactory;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
-@WebListener // 나는 리스너이다
+// @WebListener // 나는 리스너이다
 public class MyListener implements ServletContextListener {
 
 	// 스케쥴러 생성(try-catch문에서 생성!)
