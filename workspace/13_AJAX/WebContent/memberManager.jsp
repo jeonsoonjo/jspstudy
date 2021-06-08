@@ -83,26 +83,27 @@
 					
 					// 이전
 					if(paging.beginPage <= paging.pagePerBlock){
-						// 이전이 없는 1블록(disable : 링크가 없다)
+						// 이전이 없는 1블록(disable: 링크가 없다)
 						$('<div class="disable">이전</div>').appendTo('#paging');
 					} else{
-						$('<div class="prev_block link" data-page="' + (paging.beginPage - 1) + '">이전</div>').appendTo('#paging')
+						$('<div class="prev_block link" data-page="' + (paging.beginPage - 1) + '">이전</div>').appendTo('#paging');
 					}
 					
 					// 1 2 3 4 5 
-					for(let p = paging.beginPage; p<=paging.endPage; p++){
-						if(paging.page == p){
-							$('<div>' + p + '</div>').appendTo('#paging');
+					for(let p = paging.beginPage; p <= paging.endPage; p++){
+						if(paging.page == p){ // 현재 페이지는 링크가 없다
+							$('<div class="now_page">' + p + '</div>').appendTo('#paging');
 						} else{
-							$('<div><a>' + p + '</a></div>').appendTo('#paging');
+							$('<div class="go_page link" data-page="' + (p) + '">' + p + '</div>').appendTo('#paging');
 						}
 					}
 					
 					// 다음
-					if(paging.endPage == paging.totalPage){
-						$('<div>다음</div>').appendTo('#paging');
+					if(paging.endPage == paging.totalPage){ 
+						// 다음이 없는 1블록(disable: 링크가 없다)
+						$('<div class="disable">다음</div>').appendTo('#paging');
 					} else{
-						$('<div><a>다음</a></div>').appendTo('#paging');
+						$('<div class="next_block link" data-page="' + (paging.endPage + 1) + '">다음</div>').appendTo('#paging');
 					}
 				},
 				error: function(xhr, status, error){
@@ -132,6 +133,14 @@
 		// 이동할 페이지 번호를 계산하고 selectMemberList() 함수 호출하기
 		function fn_paging(){
 			$('body').on('click', '.prev_block', function(){
+				page = $(this).data('page');
+				selectMemberList();
+			})
+			$('body').on('click', '.go_page', function(){
+				page = $(this).data('page');
+				selectMemberList();
+			})
+			$('body').on('click', '.next_block', function(){
 				page = $(this).data('page');
 				selectMemberList();
 			})
@@ -318,6 +327,9 @@
 		}
 		.link{
 			cursor: pointer;
+		}
+		.now_page{
+			color: limegreen;
 		}
 	</style>
 </head>
