@@ -27,7 +27,11 @@ public class Top3StudentJob implements Job {
 				bw.write(top3.get(i).getKor() + ", ");
 				bw.write(top3.get(i).getEng() + ", ");
 				bw.write(top3.get(i).getMat() + ", ");
+				bw.write(top3.get(i).getAve() + ", ");
+				bw.write(top3.get(i).getGrade() + "\n");
 			}
+			System.out.println("포상자.txt 파일이 생성되었습니다.");
+			bw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -35,3 +39,5 @@ public class Top3StudentJob implements Job {
 	}
 
 }
+
+

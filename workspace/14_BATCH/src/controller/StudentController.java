@@ -40,15 +40,6 @@ public class StudentController extends HttpServlet {
 		case "insertStudent.do" :
 			command = new InsertStudentCommand();
 			break;
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		}
 		
 		if(command != null) {
