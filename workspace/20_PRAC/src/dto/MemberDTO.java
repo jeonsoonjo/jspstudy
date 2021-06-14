@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class MemberDTO {
 
+	// field
 	private long no;
 	private String id;
 	private String pw;
@@ -11,6 +12,7 @@ public class MemberDTO {
 	private String email;
 	private Date regdate;
 	
+	// constructor
 	public MemberDTO() {}
 	public MemberDTO(String id, String pw, String name, String email) {
 		super();
@@ -19,6 +21,8 @@ public class MemberDTO {
 		this.name = name;
 		this.email = email;
 	}
+	
+	// getter, setter
 	public long getNo() {
 		return no;
 	}
@@ -56,5 +60,6 @@ public class MemberDTO {
 		this.regdate = regdate;
 	}
 	
-	
 }
+
+

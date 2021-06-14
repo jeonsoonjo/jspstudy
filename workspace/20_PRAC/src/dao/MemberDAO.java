@@ -37,6 +37,7 @@ public class MemberDAO {
 		return instance;
 	}
 	
+	// 접속해제
 	public void close(Connection con, PreparedStatement ps, ResultSet rs) {
 		try {
 			if(con != null) {con.close();}
