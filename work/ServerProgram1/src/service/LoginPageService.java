@@ -10,6 +10,7 @@ public class LoginPageService implements MemberService {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		
+		request.getSession().invalidate();
 		return new ModelAndView("/ServerProgram1/member/login.jsp", true);
 		
 	}

@@ -28,7 +28,7 @@ public class MemberController extends HttpServlet {
 		String ser = arr[arr.length-1];
 		
 		// 요청을 전달하면 그 요청을 처리할  Model(Command)을 반환하는 MemberCommandMapper 클래스를 Command를 받는다
-		MemberService service = MemberServiceMapper.getInstance().getService(ser);
+		MemberService service = ServiceMapper.getInstance().getService(ser);
 		
 		ModelAndView mav = null;
 		if(ser != null) {

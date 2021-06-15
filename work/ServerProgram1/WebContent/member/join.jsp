@@ -10,20 +10,14 @@
 	$(document).ready(function(){
 		const f = $('#f');
 		f.submit(function(e){
+			const id = $('#id');
+			const name = $('#name');
 			if(id.val() == '' || name.val() == ''){
 				alert('가입정보를 모두 입력하세요.');
 				e.preventDefault();
 				return false;
-			} else{
-				return true;
 			}
 		})
-		
-		const back = $('#back');
-		back.click(function(){
-			location.href = '/ServerProgram1/member/index.jsp';
-		})
-		
 	})
 	
 	</script>
@@ -31,7 +25,7 @@
 <body>
 	<h1>회원 가입 폼</h1>
 	
-	<form action="join.do" id="f" method="post">
+	<form action="/ServerProgram1/join.do" id="f" method="post">
 		<span class="title">아이디</span>
 		<input type="text" name="id" id="id"><br>
 		
@@ -39,7 +33,7 @@
 		<input type="text" name="name" id="name"><br>
 		
 		<button>회원가입</button>
-		<button id="back">돌아가기</button>
+		<input type="button" value="돌아가기" onclick="location.href='/ServerProgram1/loginPage.do'">
 	</form>
 	
 </body>

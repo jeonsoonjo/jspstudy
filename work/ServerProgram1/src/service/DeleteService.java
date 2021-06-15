@@ -16,20 +16,18 @@ public class DeleteService implements MemberService {
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		// 1. session에서 loginDTO(no) 알아내기
-		HttpSession session = request.getSession();
-		MemberDTO loginDTO = (MemberDTO)session.getAttribute("loginDTO");
+		int no = ((MemberDTO)request.getSession().getAttribute("loginDTO")).getNo();
 
-		// 3. DAO의 delete()메소드 호출
-		int result = MemberDAO.getInstance().delete(loginDTO.getNo());
+		// 3. DAO의 deleteMember()메소드 호출
+		int result = MemberDAO.getInstance().deleteMember(no);
 		
 		// 4. 응답처리
 		try {
 			PrintWriter out = response.getWriter();
 			if(result > 0) {
-				session.invalidate();
 				out.println("<script>");
 				out.println("alert('탈퇴되었습니다. 이용해 주셔서 감사합니다!')");
-				out.println("location.href='/10_MODEL2/index.do'");
+				out.println("location.href='/ServerProgram1/member/login.jsp'");
 				out.println("</script>");
 			} else {
 				out.println("<script>");

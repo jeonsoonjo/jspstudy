@@ -6,17 +6,17 @@ import service.JoinService;
 import service.LoginPageService;
 import service.LoginService;
 import service.LogoutService;
-import service.ManagerService;
 import service.MemberService;
+import service.UpdateService;
 
-public class MemberServiceMapper {
+public class ServiceMapper {
 
 	// singleton
-	private static MemberServiceMapper instance = new MemberServiceMapper();
-	private MemberServiceMapper() {}
-	public static MemberServiceMapper getInstance() {
+	private static ServiceMapper instance = new ServiceMapper();
+	private ServiceMapper() {}
+	public static ServiceMapper getInstance() {
 		if(instance == null) {
-			instance = new MemberServiceMapper();
+			instance = new ServiceMapper();
 		}
 		return instance;
 	}
@@ -30,28 +30,21 @@ public class MemberServiceMapper {
 		case "login.do" :
 			service = new LoginService();
 			break;
+		case "logout.do" :
+			service = new LogoutService();
+			break;
+		case "update.do" :
+			service = new UpdateService();
+			break;
+		case "delete.do" :
+			service = new DeleteService();
+			break;
 		case "joinPage.do" :
 			service = new JoinPageService();
 			break;
 		case "join.do" :
 			service = new JoinService();
 			break;
-		case "manager.do" :
-			service = new ManagerService();
-			break;
-		case "logout.do" :
-			service = new LogoutService();
-			break;
-		case "delete.do" :
-			service = new DeleteService();
-			break;
-		
-		
-		
-		
-		
-		
-		
 		}
 		return service;
 	}

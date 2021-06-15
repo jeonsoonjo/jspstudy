@@ -3,7 +3,7 @@ package dto;
 public class MemberDTO {
 
 	// field
-	private long no;
+	private int no;
 	private String id;
 	private String name;
 	private String grade;
@@ -18,10 +18,10 @@ public class MemberDTO {
 	}
 	
 	// getter, setter
-	public long getNo() {
+	public int getNo() {
 		return no;
 	}
-	public void setNo(long no) {
+	public void setNo(int no) {
 		this.no = no;
 	}
 	public String getId() {
