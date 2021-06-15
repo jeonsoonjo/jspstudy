@@ -6,6 +6,7 @@ import service.JoinService;
 import service.LoginPageService;
 import service.LoginService;
 import service.LogoutService;
+import service.MemberListService;
 import service.MemberService;
 import service.UpdateService;
 
@@ -24,6 +25,9 @@ public class ServiceMapper {
 	public MemberService getService(String ser) {
 		MemberService service = null;
 		switch(ser) {
+		case "memberList.do" :
+			service = new MemberListService();
+			break;
 		case "loginPage.do" :
 			service = new LoginPageService();
 			break;

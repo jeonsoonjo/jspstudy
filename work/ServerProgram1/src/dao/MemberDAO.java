@@ -3,6 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import db.util.DBConnector;
 import dto.MemberDTO;
@@ -19,13 +21,36 @@ public class MemberDAO {
 	private static MemberDAO dao = new MemberDAO();
 	private MemberDAO() {
 		con = DBConnector.getInstance().getConnection();
-		
 	}
 	public static MemberDAO getInstance() {
 		if(dao == null) {
 			dao = new MemberDAO();
 		}
 		return dao;
+	}
+	
+	// 회원 목록(memberList)
+	public List<MemberDTO> memberList(){
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		try {
+			sql = "SELECT NO, ID, NAME, GRADE, POINT FROM MEMBER_TABLE";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setNo(rs.getInt(1));
+				dto.setId(rs.getString(2));
+				dto.setName(rs.getString(3));
+				dto.setGrade(rs.getString(4));
+				dto.setPoint(rs.getInt(5));
+				list.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(ps, rs);
+		}
+		return list;
 	}
 	
 	// 1. 로그인(login)
@@ -86,7 +111,6 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
 	
 	// 3. 회원가입
 	public int joinMember(MemberDTO dto) { // join.jsp가 전달한 dto

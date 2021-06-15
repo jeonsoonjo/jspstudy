@@ -21,9 +21,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td></td>
-				</tr>
+				<c:forEach var="dto" items="${list}">
+					<tr>
+						<td>${dto.no}</td>
+						<td>${dto.id}</td>
+						<td>${dto.name}</td>
+						<td>${dto.grade}</td>
+						<td>${dto.point}</td>
+					</tr>
+				</c:forEach>
+				
 			</tbody>
 		</table>
 	</div>
