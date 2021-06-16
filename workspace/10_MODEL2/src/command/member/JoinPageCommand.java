@@ -16,3 +16,4 @@ public class JoinPageCommand implements MemberCommand {
 	}
 
 }
+
