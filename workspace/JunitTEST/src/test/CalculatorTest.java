@@ -32,11 +32,13 @@ class CalculatorTest {
 		// fail("Not yet implemented"); // fail메시지 때문에 적색으로 보임
 		
 		/*
-			if(DAO.getInstance().insrt(person) == 0) { fail("삽입 실패"); }
+			if(DAO.getInstance().insert(person) == 0) { fail("삽입 실패"); }
 		*/
 		
 		
 	}
+	
+	
 
 }
 

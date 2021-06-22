@@ -11,7 +11,7 @@
 			fn_tableMaker();
 			fn_selectList();
 			fn_insert();
-			fn_update();
+			//fn_update();
 			fn_delete();
 		})
 		
@@ -20,16 +20,33 @@
 			$('#person_list').empty();
 			$.each(arr, function(i, person){
 				$('<tr>')
-				.append($('<td>').text(person.sno))
-				.append($('<td>').text(person.name))
-				.append($('<td>').text(person.age))
-				.append($('<td>').text(person.birthday))
-				.append($('<td>').text(person.regdate))
+				.append($("<td name='sno'>").text(person.sno))
+				.append($('<td name="name" onclick="setDate('+i+');">').text(person.name))
+				.append($('<td name="age">').text(person.age))
+				.append($('<td name="birthday">').text(person.birthday))
+				.append($('<td name="regdate">').text(person.regdate))
 				.append($('<input type="hidden" name="sno">').val(person.sno))
-				.append($('<input type="button" id="update_btn" value="수정">'))
+				.append($('<input type="button" onclick="fn_update()" id="update_btn" value="수정">'))
 				.append($('<input type="button" id="delete_btn" value="삭제">'))
+				.append($('</tr>'))
 				.appendTo('#person_list');
 			});
+		}
+		
+		//데이터 세팅
+		function setDate(num){
+
+			var sno = $("#person_list tr:eq("+num+") td:eq(0)").text();
+			var name = $("#person_list tr:eq("+num+") td:eq(1)").text();
+			var age = $("#person_list tr:eq("+num+") td:eq(2)").text();
+			var birthday = $("#person_list tr:eq("+num+") td:eq(3)").text();
+			
+			$("#sno").val(sno);
+			$("#name").val(name);
+			$("#age").val(age);
+			$("#birthday").val(birthday);
+			
+			
 		}
 		
 		// 회원 조회
@@ -79,23 +96,25 @@
 		
 		// 회원 정보 수정
 		function fn_update(){
+			
 			$('body').on('click', '#update_btn', function(){
-				var sno = $(this).parent().find('input:hidden[name="sno"]').val();
+				
 				$.ajax({
 					url: 'updatePerson.do',
 					type: 'get',
-					data: 'sno=' + sno,
+					data: $('#f').serialize(),
 					dataType: 'json',
 					success: function(obj){
+						
 						if(obj.count > 0){
-							alert(sno + ' 님의 정보가 수정되었습니다');
-							fn_selectOneBySno();
+							alert('정보가 수정되었습니다');
+							fn_selectList();
 						} else{
-							alert(sno + ' 님의 정보가 수정되지 않았습니다');
-						},
-						error: function(xhr, textStatus, errorThrown){
-							
+							alert('정보가 수정되지 않았습니다');
 						}
+					},
+					error: function(xhr, textStatus, errorThrown){
+						
 					}
 				}); // end ajax
 			})

@@ -120,7 +120,7 @@ public class PersonDAO {
 		int count = 0;
 		try {
 			con = getConnection();
-			sql = "UPDATE PERSON SET NAME=?, AGE=? BIRTHDAY=? WHERE SNO=?";
+			sql = "UPDATE PERSON SET NAME=?, AGE=?, BIRTHDAY=? WHERE SNO=?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, person.getName());
 			ps.setInt(2, person.getAge());
