@@ -106,5 +106,29 @@ public class PersonDAO {
 		return count;
 	}
 	
+	public Person selectPersonBySno(String sno) {
+		Person person = null;
+		try {
+			con = getConnection();
+			sql = "SELECT SNO, NAME, AGE, BIRTHDAY, REGDATE FROM PERSON WHERE SNO=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, sno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				person = new Person();
+				person.setSno(rs.getString(1));
+				person.setName(rs.getString(2));
+				person.setAge(rs.getInt(3));
+				person.setBirthday(rs.getString(4));
+				person.setRegdate(rs.getDate(5));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		return person;
+	}
+	
 }
 

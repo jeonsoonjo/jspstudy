@@ -153,6 +153,7 @@
 				<input type="button" value="등록하기" id="insert_btn">
 			</form>
 		</div>
+		
 		<div class="list_form">
 			<table>
 				<thead>
