@@ -7,7 +7,42 @@
 	<title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
-	
+		$(document).ready(function(){
+			fn_insert();
+		})
+		
+		// 회원 등록
+		function fn_insert(){
+			$('#insert_btn').click(function(){
+				var regSNO = /^[0-9]{6}$/;
+				if(!regSNO.test($('#sno').val())){
+					alert('주민등록번호는 6자리 숫자입니다.');
+					return;
+				}
+				$.ajax({
+					url: 'insertPerson.do',
+					type: 'post',
+					data: $('#f').serialize(),
+					dataType: 'json',
+					success: function(obj){
+						if(obj.count > 0){
+							alert('회원 등록이 완료되었습니다.');
+							fn_selectList();
+						} else{
+							alert('회원 등록에 실패했습니다.');
+						}
+					},
+					error: function(xhr, textStatus, errorThrown){
+						if (xhr.status == 3001 || xhr.status == 3002 || xhr.status == 3003 || xhr.status == 3004) {
+							alert(xhr.responseText);
+						}
+					}
+				}); // end ajax
+			}); // click
+		}
+		
+		
+		
 	</script>
 	<style>
 		.container {
