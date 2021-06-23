@@ -22,7 +22,7 @@ class CalculatorTest {
 	}
 
 	@Test
-	@DisplayName("1 + 1 = 2") // text()을 의미한다
+	@DisplayName("1 + 1 = 2") // test()을 의미한다
 	void test() {
 		Calculator calculator = new Calculator();
 		// assertNull(calculator); // null인지 검사(null이면 통과)
